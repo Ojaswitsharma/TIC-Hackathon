@@ -116,6 +116,8 @@ class SimpleConversationalAgent:
         missing_info = []
         if not self.customer_data.get("customer_name"):
             missing_info.append("customer name")
+        if not self.customer_data.get("company_name"):
+            missing_info.append("company name")
         if not self.customer_data.get("problem_description"):
             missing_info.append("detailed problem description")
         if not self.customer_data.get("order_id") and not self.customer_data.get("product_name"):
@@ -193,7 +195,7 @@ class SimpleConversationalAgent:
         print("="*60)
         
         # Initial greeting
-        greeting = "Hello! I'm here to help you with your complaint today. To get started, could you please tell me your name and briefly describe the issue you're experiencing?"
+        greeting = "Hello! I'm here to help you with your complaint today. To get started, could you please tell me your name, which company your complaint is about, and briefly describe the issue you're experiencing?"
         self.speak(greeting)
         self.conversation_history.append({"role": "agent", "message": greeting})
         
@@ -276,39 +278,37 @@ class SimpleConversationalAgent:
             return "low"
     
     def create_final_output(self):
-        """Create structured final output"""
-        return {
-            "metadata": {
-                "conversation_completed": datetime.now().isoformat(),
-                "total_questions": self.question_count,
-                "total_exchanges": len([msg for msg in self.conversation_history if msg["role"] == "customer"])
-            },
-            "conversation": {
-                "full_history": self.conversation_history,
-                "emotion_journey": self.customer_emotions
-            },
-            "customer_info": {
-                "name": self.customer_data.get("customer_name"),
-                "phone": self.customer_data.get("customer_phone"),
-                "email": self.customer_data.get("customer_email")
-            },
-            "complaint_details": {
-                "description": self.customer_data.get("problem_description"),
-                "category": self.customer_data.get("problem_category"),
-                "urgency_level": self.customer_data.get("urgency_level"),
-                "order_id": self.customer_data.get("order_id"),
-                "product_name": self.customer_data.get("product_name")
-            },
-            "company_info": {
-                "company_name": self.customer_data.get("company_name")
-            },
-            "emotional_analysis": {
-                "emotions_detected": [emotion.get("emotion") for emotion in self.customer_emotions if emotion.get("emotion")],
-                "overall_intensity": self._analyze_overall_emotion_intensity(),
-                "emotion_progression": self.customer_emotions
-            },
+        """Create structured final output - only final state"""
+        output_data = {
+            "conversation_completed": datetime.now().isoformat(),
+            "customer_name": self.customer_data.get("customer_name"),
+            "company_name": self.customer_data.get("company_name"),
+            "customer_phone": self.customer_data.get("customer_phone"),
+            "customer_email": self.customer_data.get("customer_email"),
+            "problem_description": self.customer_data.get("problem_description"),
+            "problem_category": self.customer_data.get("problem_category"),
+            "urgency_level": self.customer_data.get("urgency_level"),
+            "order_id": self.customer_data.get("order_id"),
+            "product_name": self.customer_data.get("product_name"),
+            "final_emotion": self.customer_emotions[-1].get("emotion") if self.customer_emotions else "neutral",
+            "emotion_intensity": self.customer_emotions[-1].get("intensity") if self.customer_emotions else "medium",
             "status": "conversation_completed"
         }
+        
+        # Save output to file
+        self.save_output(output_data)
+        return output_data
+    
+    def save_output(self, output_data):
+        """Save the final output to a JSON file in the output folder"""
+        os.makedirs("output", exist_ok=True)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"output/conversation_output_{timestamp}.json"
+        
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(output_data, f, indent=2, ensure_ascii=False)
+        
+        print(f"💾 Final output saved: {filename}")
 
 def main():
     """Main function"""
