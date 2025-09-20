@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "processing_timestamp": "2025-09-21T00:17:27.130667",
+    "transcription_confidence": 0.0,
+    "audio_file": "audio_recordings\\complaint_20250921_001716.wav",
+    "errors": []
+  },
+  "transcription": {
+    "text": "[No speech detected - continuing with empty transcription]"
+  },
+  "customer_info": {
+    "name": null,
+    "phone": null,
+    "email": null,
+    "address": null
+  },
+  "complaint_details": {
+    "description": "No complaint text detected in audio",
+    "category": "unknown",
+    "urgency_level": "low",
+    "order_id": null,
+    "product_name": null,
+    "purchase_date": null
+  },
+  "company_info": {
+    "company_name": "unknown",
+    "confidence": 0.0
+  },
+  "status": "processed"
+}

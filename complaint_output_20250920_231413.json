@@ -1,0 +1,36 @@
+{
+  "complaint_id": "COMP_20250920_231413",
+  "processing_info": {
+    "timestamp": "2025-09-20T23:14:13.544117",
+    "processing_stage": "generating_structured_output",
+    "transcription_confidence": null,
+    "errors": [
+      "Speech-to-text error: Transcriber.__init__() takes 1 positional argument but 2 were given",
+      "No transcribed text available for analysis"
+    ]
+  },
+  "audio_processing": {
+    "original_audio_path": "customer_complaint.wav",
+    "transcribed_text": null,
+    "transcription_confidence": null
+  },
+  "customer_information": {
+    "name": null,
+    "phone": null,
+    "email": null,
+    "address": null
+  },
+  "complaint_details": {
+    "description": null,
+    "category": null,
+    "urgency_level": null,
+    "order_id": null,
+    "product_name": null,
+    "purchase_date": null
+  },
+  "company_info": {
+    "company_name": null,
+    "confidence": null
+  },
+  "status": "processed_with_errors"
+}
