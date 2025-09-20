@@ -268,8 +268,6 @@ class ExecutionLayer:
             llm = self.decision_engine._initialize_llm(
                 model=os.getenv("DEFAULT_LLM_MODEL", "llama-3.1-8b-instant"),
                 use_groq=True,
-                use_google=False,
-                use_openai=False,
                 temperature=0.1
             )
             

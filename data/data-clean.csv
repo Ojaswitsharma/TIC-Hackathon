@@ -1,0 +1,11 @@
+company,service_type,issue_category,resolution_time_days,satisfaction_score,cost_usd
+TechCorp,Software Support,Login Issues,1,8.5,50
+DataFlow,Hardware Repair,Network Connectivity,3,7.2,150
+CloudServ,Software Support,Feature Request,5,9.1,75
+NetSafe,Security Audit,Malware Detection,2,8.8,200
+InfoTech,Data Recovery,File Corruption,7,6.9,300
+ConnectPlus,Hardware Repair,Server Downtime,4,7.5,250
+SecureNet,Software Support,Bug Fixes,2,8.3,100
+FastTrack,Network Setup,Configuration,1,9.0,80
+DataGuard,Security Audit,Vulnerability Assessment,3,8.7,180
+TechFlow,Software Support,Performance Issues,2,7.8,120

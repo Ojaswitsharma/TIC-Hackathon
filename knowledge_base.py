@@ -133,31 +133,76 @@ class CompanyKnowledgeBase:
         
         # Try to load existing vector store first
         index_path = "company_kb_index"
+        metadata_path = f"{index_path}_metadata.json"
         should_rebuild = False
         
         if Path(index_path).exists():
             logger.info(f"Found existing vector index at {index_path}")
             
-            # Check if we need to rebuild due to new files
-            index_time = Path(index_path).stat().st_mtime
-            for file_path in current_files:
-                if file_path.stat().st_mtime > index_time:
-                    logger.info(f"New or modified file detected: {file_path}")
-                    should_rebuild = True
-                    break
-            
-            if not should_rebuild and self.load_index(index_path):
-                logger.info("Successfully loaded existing vector index")
-                # Also load the original documents for reference
-                self._load_original_documents()
-                return
-            else:
-                logger.info("Rebuilding vector index due to new/modified files...")
+            # Check if we need to rebuild using metadata comparison
+            try:
+                if Path(metadata_path).exists():
+                    import json
+                    with open(metadata_path, 'r') as f:
+                        stored_metadata = json.load(f)
+                    
+                    # Check for new or modified files
+                    for file_path in current_files:
+                        file_str = str(file_path)
+                        current_mtime = file_path.stat().st_mtime
+                        current_size = file_path.stat().st_size
+                        
+                        if file_str not in stored_metadata:
+                            logger.info(f"New file detected: {file_path}")
+                            should_rebuild = True
+                            break
+                        
+                        stored_info = stored_metadata[file_str]
+                        if (current_mtime != stored_info.get("mtime") or 
+                            current_size != stored_info.get("size")):
+                            logger.info(f"Modified file detected: {file_path}")
+                            should_rebuild = True
+                            break
+                    
+                    # Check for deleted files
+                    if not should_rebuild:
+                        stored_files = set(stored_metadata.keys())
+                        current_file_strs = {str(f) for f in current_files}
+                        deleted_files = stored_files - current_file_strs
+                        if deleted_files:
+                            logger.info(f"Deleted files detected: {deleted_files}")
+                            should_rebuild = True
+                else:
+                    # No metadata file, use timestamp comparison as fallback
+                    logger.info("No metadata file found, checking timestamps...")
+                    index_time = Path(index_path).stat().st_mtime
+                    for file_path in current_files:
+                        if file_path.stat().st_mtime > index_time:
+                            logger.info(f"File modified after index: {file_path}")
+                            should_rebuild = True
+                            break
+                
+                if not should_rebuild:
+                    # Try to load the existing index
+                    if self.load_index(index_path):
+                        logger.info("Using existing vector index (no changes detected)")
+                        # Also load the original documents for reference
+                        self._load_original_documents()
+                        return
+                    else:
+                        logger.warning("Failed to load existing index, rebuilding...")
+                        should_rebuild = True
+                else:
+                    logger.info("Rebuilding vector index due to document changes...")
+                    
+            except Exception as e:
+                logger.warning(f"Error checking document changes: {e}, rebuilding...")
+                should_rebuild = True
+        else:
+            logger.info("No existing vector index found, creating new one...")
+            should_rebuild = True
         
         # If no existing index or rebuild needed, load documents and create new vector store
-        if not should_rebuild:
-            logger.info("No existing vector index found, creating new one...")
-        
         if documents_dir.exists() and current_files:
             logger.info(f"Found {len(current_files)} document files")
             documents = self.load_documents(list(current_files))
@@ -327,7 +372,7 @@ class CompanyKnowledgeBase:
     
     def save_index(self, index_path: str = "company_kb_index"):
         """
-        Save the vector index to disk
+        Save the vector index to disk along with metadata about indexed documents
         
         Args:
             index_path: Path to save the index
@@ -337,8 +382,33 @@ class CompanyKnowledgeBase:
             return False
         
         try:
+            # Save the vector store
             self.vector_store.save_local(index_path)
-            logger.info(f"Vector index saved to {index_path}")
+            
+            # Save metadata about indexed documents
+            metadata_path = f"{index_path}_metadata.json"
+            documents_dir = Path("documents")
+            
+            if documents_dir.exists():
+                import json
+                from datetime import datetime
+                
+                file_info = {}
+                for pattern in ["*.txt", "*.md", "*.pdf", "*.csv"]:
+                    for file_path in documents_dir.glob(pattern):
+                        file_info[str(file_path)] = {
+                            "size": file_path.stat().st_size,
+                            "mtime": file_path.stat().st_mtime,
+                            "indexed_at": datetime.now().isoformat()
+                        }
+                
+                with open(metadata_path, 'w') as f:
+                    json.dump(file_info, f, indent=2)
+                
+                logger.info(f"Vector index and metadata saved to {index_path}")
+            else:
+                logger.info(f"Vector index saved to {index_path}")
+            
             return True
         except Exception as e:
             logger.error(f"Error saving index: {e}")

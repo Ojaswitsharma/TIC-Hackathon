@@ -35,3 +35,6 @@ A: Standard office hours are 8 AM to 5 PM, Monday through Friday. We observe all
 
 Q: How do we handle expense reimbursements?
 A: Expense reports must be submitted within 30 days of the expense with original receipts. Pre-approval is required for expenses over $500. Reimbursements are processed within 10 business days. Corporate credit cards are available for frequent travelers.
+# Updated FAQ
+Q: Test question?
+A: Test answer for optimization verification.

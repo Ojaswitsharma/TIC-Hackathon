@@ -1,0 +1,10 @@
+{
+  "customer_info": {
+    "name": "Test User",
+    "email": "test@example.com"
+  },
+  "complaint_details": {
+    "description": "Test issue for optimization verification",
+    "category": "billing"
+  }
+}

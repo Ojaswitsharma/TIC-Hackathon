@@ -28,25 +28,12 @@ from langchain_core.runnables import RunnablePassthrough, RunnableParallel, Runn
 from langchain_core.messages import BaseMessage
 from langchain_community.vectorstores import FAISS
 
-# LLM imports - with Groq support (primary) and Google Gemini (fallback)
+# LLM imports - with Groq support
 try:
     from langchain_groq import ChatGroq
     GROQ_AVAILABLE = True
 except ImportError:
     GROQ_AVAILABLE = False
-
-try:
-    from langchain_google_genai import ChatGoogleGenerativeAI
-    GOOGLE_AVAILABLE = True
-except ImportError:
-    GOOGLE_AVAILABLE = False
-
-try:
-    from langchain_openai import ChatOpenAI
-    from langchain_openai import OpenAIEmbeddings
-    OPENAI_AVAILABLE = True
-except ImportError:
-    OPENAI_AVAILABLE = False
 
 # Environment variables
 from dotenv import load_dotenv
@@ -246,8 +233,6 @@ class DecisionEngine:
                  knowledge_base: Optional[CompanyKnowledgeBase] = None,
                  llm_model: str = None,
                  use_groq: bool = None,
-                 use_google: bool = None,
-                 use_openai: bool = None,
                  temperature: float = None):
         """
         Initialize the Decision Engine
@@ -256,8 +241,6 @@ class DecisionEngine:
             knowledge_base: Pre-initialized knowledge base
             llm_model: LLM model to use (auto-detect from env if None)
             use_groq: Whether to use Groq (auto-detect if None)
-            use_google: Whether to use Google Gemini (auto-detect if None)
-            use_openai: Whether to use OpenAI (auto-detect if None)
             temperature: LLM temperature for creativity control
         """
         
@@ -273,8 +256,8 @@ class DecisionEngine:
         else:
             self.knowledge_base = self._load_knowledge_base()
         
-        # Initialize LLM with Groq priority, then Google Gemini, then OpenAI
-        self.llm = self._initialize_llm(self.llm_model, use_groq, use_google, use_openai, self.temperature)
+        # Initialize LLM with Groq
+        self.llm = self._initialize_llm(self.llm_model, use_groq, self.temperature)
         
         # Initialize prompt templates
         self.prompt_templates = self._create_prompt_templates()
@@ -299,22 +282,14 @@ class DecisionEngine:
             # Return a basic knowledge base
             return CompanyKnowledgeBase()
     
-    def _initialize_llm(self, model: str, use_groq: Optional[bool], use_google: Optional[bool], use_openai: Optional[bool], temperature: float):
-        """Initialize LLM with Groq priority, then Google Gemini, then OpenAI fallback"""
+    def _initialize_llm(self, model: str, use_groq: Optional[bool], temperature: float):
+        """Initialize LLM with Groq"""
         
         # Auto-detect Groq availability
         if use_groq is None:
             use_groq = GROQ_AVAILABLE and bool(os.getenv("GROQ_API_KEY"))
         
-        # Auto-detect Google Gemini availability
-        if use_google is None:
-            use_google = GOOGLE_AVAILABLE and bool(os.getenv("GOOGLE_API_KEY"))
-        
-        # Auto-detect OpenAI availability
-        if use_openai is None:
-            use_openai = OPENAI_AVAILABLE and bool(os.getenv("OPENAI_API_KEY"))
-        
-        # Priority 1: Groq LLM
+        # Use Groq LLM
         if use_groq and GROQ_AVAILABLE:
             try:
                 llm = ChatGroq(
@@ -326,42 +301,11 @@ class DecisionEngine:
                 logger.info(f"Using Groq LLM: {model}")
                 return llm
             except Exception as e:
-                logger.warning(f"Groq LLM initialization failed: {e}")
+                logger.error(f"Groq LLM initialization failed: {e}")
+                raise Exception(f"Failed to initialize Groq LLM: {e}")
         
-        # Priority 2: Google Gemini (fallback)
-        if use_google and GOOGLE_AVAILABLE:
-            try:
-                # Convert Groq model names to Gemini equivalents
-                gemini_model = "gemini-1.5-flash" if "llama" in model.lower() else model
-                llm = ChatGoogleGenerativeAI(
-                    model=gemini_model,
-                    temperature=temperature,
-                    max_tokens=int(os.getenv("LLM_MAX_TOKENS", "2000")),
-                    google_api_key=os.getenv("GOOGLE_API_KEY")
-                )
-                logger.info(f"Using Google Gemini LLM as fallback: {gemini_model}")
-                return llm
-            except Exception as e:
-                logger.warning(f"Google Gemini LLM initialization failed: {e}")
-        
-        # Priority 3: OpenAI (secondary fallback)
-        if use_openai and OPENAI_AVAILABLE:
-            try:
-                # Convert model names to OpenAI equivalents
-                openai_model = "gpt-3.5-turbo" if ("llama" in model.lower() or "gemini" in model.lower()) else model
-                llm = ChatOpenAI(
-                    model=openai_model,
-                    temperature=temperature,
-                    max_tokens=2000
-                )
-                logger.info(f"Using OpenAI LLM as secondary fallback: {openai_model}")
-                return llm
-            except Exception as e:
-                logger.warning(f"OpenAI LLM initialization failed: {e}")
-        
-        # Priority 4: Mock LLM for demonstration
-        logger.info("Using fallback Mock LLM (no API keys available)")
-        return MockLLM()
+        # No LLM available
+        raise Exception("No LLM available. Please provide GROQ_API_KEY in your environment.")
     
     def _create_prompt_templates(self) -> Dict[str, PromptTemplate]:
         """Create prompt templates for different scenarios"""

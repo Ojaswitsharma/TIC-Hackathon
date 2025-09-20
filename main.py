@@ -25,6 +25,14 @@ from knowledge_base import CompanyKnowledgeBase
 from decision_engine import DecisionEngine, CaseFingerprint
 from execution_layer import ExecutionLayer
 
+# Import conversational agent functionality
+try:
+    from conversational_agent import ConversationalCustomerServiceAgent
+    CONVERSATIONAL_AVAILABLE = True
+except ImportError:
+    CONVERSATIONAL_AVAILABLE = False
+    print("⚠️ Conversational agent not available. Install audio dependencies for full functionality.")
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -647,6 +655,149 @@ Customer Service Team"""
             "error_count": error_count,
             "total_files": len(json_files)
         }
+    
+    def process_audio_to_json(self, audio_mode="live"):
+        """Process audio input using conversational agent and convert to TIC JSON format"""
+        if not CONVERSATIONAL_AVAILABLE:
+            print("❌ Conversational agent not available. Please install audio dependencies:")
+            print("   pip install assemblyai langgraph pydantic sounddevice pyaudio pyttsx3")
+            return None
+        
+        print("🎤 Starting Audio Processing Mode")
+        print("=" * 40)
+        
+        try:
+            # Initialize conversational agent
+            agent = ConversationalCustomerServiceAgent()
+            
+            if audio_mode == "live":
+                print("🎙️ Starting live audio recording...")
+                print("   Speak your complaint clearly")
+                print("   Press Ctrl+C to stop recording")
+                
+                # Process live audio
+                result = agent.run_conversation()
+            else:
+                # For file-based processing (if audio file exists)
+                audio_files = glob.glob("*.wav") + glob.glob("*.mp3")
+                if not audio_files:
+                    print("❌ No audio files found. Starting live recording...")
+                    result = agent.run_conversation()
+                else:
+                    print(f"🎵 Found audio file: {audio_files[0]}")
+                    result = agent.process_audio_file(audio_files[0])
+            
+            if not result:
+                print("❌ No valid audio processing result")
+                return None
+            
+            # Convert conversational agent output to TIC JSON format
+            tic_json = self._convert_agent_output_to_tic_format(result)
+            
+            # Save the converted JSON to input directory for processing
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            json_filename = f"audio_input_{timestamp}.json"
+            json_path = os.path.join("input", json_filename)
+            
+            # Ensure input directory exists
+            os.makedirs("input", exist_ok=True)
+            
+            with open(json_path, 'w') as f:
+                json.dump(tic_json, f, indent=2)
+            
+            print(f"✅ Audio converted to JSON: {json_filename}")
+            print(f"📁 Saved to: {json_path}")
+            
+            # Now process this JSON with the TIC system
+            print(f"\n🔄 Processing with TIC System...")
+            result = self.process_json_input(tic_json)
+            
+            return result
+            
+        except KeyboardInterrupt:
+            print("\n🛑 Audio recording stopped by user")
+            return None
+        except Exception as e:
+            print(f"❌ Error in audio processing: {e}")
+            return None
+    
+    def _convert_agent_output_to_tic_format(self, agent_output):
+        """Convert conversational agent output to TIC JSON format"""
+        try:
+            # Extract information from agent output
+            customer_name = agent_output.get("customer_info", {}).get("name", "Unknown")
+            customer_phone = agent_output.get("customer_info", {}).get("phone", "")
+            customer_email = agent_output.get("customer_info", {}).get("email", "")
+            
+            complaint_desc = agent_output.get("complaint_details", {}).get("description", "")
+            order_id = agent_output.get("complaint_details", {}).get("order_id", "")
+            product_name = agent_output.get("complaint_details", {}).get("product_name", "")
+            category = agent_output.get("complaint_details", {}).get("category", "General_Inquiry")
+            urgency = agent_output.get("complaint_details", {}).get("urgency_level", "medium")
+            
+            company_name = agent_output.get("company_info", {}).get("company_name", "Unknown")
+            
+            # Map categories from conversational agent to TIC categories
+            category_mapping = {
+                "delivery": "Delivery Issue",
+                "billing": "Billing Issue", 
+                "product": "Product Issue",
+                "refund": "Refund Request",
+                "account": "Account Issue",
+                "unknown": "General Inquiry"
+            }
+            
+            mapped_category = category_mapping.get(category.lower(), "General Inquiry")
+            
+            # Create TIC-compatible JSON
+            tic_json = {
+                "customer_info": {
+                    "name": customer_name,
+                    "phone": customer_phone,
+                    "email": customer_email
+                },
+                "complaint_details": {
+                    "description": complaint_desc,
+                    "category": mapped_category,
+                    "urgency_level": urgency,
+                    "order_id": order_id,
+                    "product_name": product_name
+                },
+                "company_info": {
+                    "company_name": company_name
+                },
+                "status": "conversation_completed",
+                "source": "audio_input",
+                "processing_metadata": {
+                    "transcription_confidence": agent_output.get("metadata", {}).get("transcription_confidence", 0.0),
+                    "audio_file": agent_output.get("metadata", {}).get("audio_file", ""),
+                    "processing_timestamp": datetime.now().isoformat()
+                }
+            }
+            
+            return tic_json
+            
+        except Exception as e:
+            print(f"❌ Error converting agent output: {e}")
+            # Return a minimal valid JSON structure
+            return {
+                "customer_info": {
+                    "name": "Unknown",
+                    "phone": "",
+                    "email": ""
+                },
+                "complaint_details": {
+                    "description": "Audio processing error",
+                    "category": "General Inquiry",
+                    "urgency_level": "medium",
+                    "order_id": "",
+                    "product_name": ""
+                },
+                "company_info": {
+                    "company_name": "Unknown"
+                },
+                "status": "processing_error"
+            }
 
 
 def main():
@@ -657,9 +808,11 @@ def main():
     parser.add_argument("--json", type=str, help="Process JSON customer data (file path or JSON string)")
     parser.add_argument("--json-file", type=str, help="Process JSON customer data from file")
     parser.add_argument("--interactive", action="store_true", help="Run interactive mode")
+    parser.add_argument("--audio", action="store_true", help="Process audio input (live recording)")
+    parser.add_argument("--audio-file", action="store_true", help="Process audio files from current directory")
     parser.add_argument("--input-dir", type=str, default="input", help="Input directory for JSON files (default: input)")
     parser.add_argument("--output-dir", type=str, default="output", help="Output directory for results (default: output)")
-    parser.add_argument("--version", action="version", version="TIC System v1.0")
+    parser.add_argument("--version", action="version", version="TIC System v2.0")
     
     args = parser.parse_args()
     
@@ -667,7 +820,17 @@ def main():
         # Initialize system
         tic_system = TICSystem()
         
-        if args.json or args.json_file:
+        if args.audio or args.audio_file:
+            # Process audio input
+            audio_mode = "file" if args.audio_file else "live"
+            result = tic_system.process_audio_to_json(audio_mode)
+            if result:
+                print(f"\n📊 Audio Processing Result:")
+                print(f"Status: {result.get('status', 'unknown')}")
+                if result.get('case_id'):
+                    print(f"Case ID: {result['case_id']}")
+                    
+        elif args.json or args.json_file:
             # Process single JSON input
             if args.json_file:
                 # Read from file

@@ -76,9 +76,9 @@ TIC/
 ## 🔧 Configuration
 
 ### API Keys
-The system uses Google Gemini Flash 1.5. Your API key is stored in `.env`:
+The system uses Groq LLM. Your API key is stored in `.env`:
 ```
-GOOGLE_API_KEY=your_api_key_here
+GROQ_API_KEY=your_api_key_here
 ```
 
 ### Documents
