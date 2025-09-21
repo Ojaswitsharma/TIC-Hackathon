@@ -15,6 +15,7 @@ Key Functions:
 
 import json
 import os
+import re
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timedelta
 from groq import Groq
@@ -86,35 +87,70 @@ class IntelligentSolutionAgent:
             }
         }
         
-        # Define solution protocols based on RAG knowledge
+        # Define comprehensive solution capabilities based on RAG knowledge
+        self.ai_capabilities = {
+            "universal_tools": [
+                "real_time_order_tracking", "package_location_services", "delivery_partner_communication",
+                "billing_history_access", "payment_processing", "refund_authorization_up_to_500",
+                "account_management", "security_updates", "inventory_lookup", "replacement_processing",
+                "shipping_expediting", "address_updates", "promotional_credits", "compensation_authorization",
+                "customer_history_analysis", "dispute_resolution", "priority_escalation"
+            ],
+            "amazon_specific": [
+                "prime_benefits_management", "aws_account_integration", "kindle_book_management",
+                "alexa_device_support", "marketplace_seller_coordination", "fulfillment_center_communication"
+            ],
+            "facebook_specific": [
+                "content_policy_review", "community_standards_guidance", "business_page_management", 
+                "advertising_account_support", "privacy_settings_assistance", "data_download_processing"
+            ],
+            "flipkart_specific": [
+                "flipkart_plus_benefits", "seller_marketplace_support", "regional_delivery_coordination",
+                "payment_gateway_integration", "festival_sale_support", "customer_loyalty_programs"
+            ]
+        }
+        
+        # Updated solution protocols emphasizing AI tool usage
         self.solution_protocols = {
             "amazon": {
                 "shipping_delays": {
-                    "solvable_conditions": ["order_exists", "delay_under_7_days", "customer_verified"],
-                    "actions": ["issue_refund", "expedite_shipping", "provide_tracking"],
-                    "compensation": ["partial_refund", "free_shipping_upgrade", "amazon_credit"]
+                    "ai_actions": ["track_package_realtime", "contact_delivery_partner", "expedite_shipping", "provide_replacement"],
+                    "compensation": ["shipping_refund", "prime_extension", "promotional_credit", "expedited_shipping_upgrade"],
+                    "authorization_limit": 500
                 },
                 "refunds_returns": {
-                    "solvable_conditions": ["order_exists", "within_return_window", "customer_verified"],
-                    "actions": ["process_refund", "generate_return_label", "schedule_pickup"],
-                    "compensation": ["full_refund", "store_credit", "exchange_product"]
+                    "ai_actions": ["process_immediate_refund", "generate_return_label", "schedule_pickup", "apply_store_credit"],
+                    "compensation": ["full_refund", "bonus_credit", "return_shipping_waiver"],
+                    "authorization_limit": 500
                 },
                 "account_issues": {
-                    "solvable_conditions": ["account_exists", "phone_verified", "no_security_flags"],
-                    "actions": ["reset_password", "update_security", "verify_identity"],
-                    "compensation": ["account_restoration", "security_enhancement"]
+                    "ai_actions": ["reset_password_instantly", "update_security_settings", "verify_identity", "restore_account_access"],
+                    "compensation": ["account_security_enhancement", "priority_support_status"],
+                    "authorization_limit": 100
                 }
             },
             "facebook": {
                 "content_moderation": {
-                    "solvable_conditions": ["content_exists", "appeal_window_open", "user_verified"],
-                    "actions": ["review_content", "restore_post", "provide_explanation"],
-                    "compensation": ["content_restoration", "policy_clarification"]
+                    "ai_actions": ["review_content_policy", "restore_content", "provide_policy_guidance", "appeal_processing"],
+                    "compensation": ["content_restoration", "policy_education_materials"],
+                    "authorization_limit": 0  # No monetary compensation typically
                 },
                 "account_suspension": {
-                    "solvable_conditions": ["account_exists", "suspension_reviewable", "user_verified"],
-                    "actions": ["review_suspension", "restore_account", "provide_guidelines"],
-                    "compensation": ["account_restoration", "policy_education"]
+                    "ai_actions": ["review_account_status", "process_appeal", "restore_account", "provide_compliance_guidance"],
+                    "compensation": ["account_restoration", "priority_review_status"],
+                    "authorization_limit": 0
+                }
+            },
+            "flipkart": {
+                "shipping_delays": {
+                    "ai_actions": ["track_shipment", "coordinate_local_delivery", "expedite_processing", "arrange_replacement"],
+                    "compensation": ["shipping_refund", "flipkart_plus_benefits", "cashback_credit"],
+                    "authorization_limit": 500
+                },
+                "refunds_returns": {
+                    "ai_actions": ["process_refund", "arrange_pickup", "quality_assurance_review", "replacement_processing"],
+                    "compensation": ["full_refund", "return_shipping_waiver", "loyalty_points"],
+                    "authorization_limit": 500
                 }
             }
         }
@@ -209,106 +245,123 @@ class IntelligentSolutionAgent:
                     return "content_moderation"  # Default
     
     def check_solvability(self, analysis: Dict[str, Any], customer_data: Optional[Dict], issue_category: str) -> Dict[str, Any]:
-        """Check if the issue can be solved based on available data and protocols"""
+        """Check if the issue can be solved - now much more optimistic with comprehensive tool access"""
         
         company = analysis["company"]
-        protocols = self.solution_protocols.get(company, {}).get(issue_category, {})
+        customer_verified = analysis["customer_verified"]
+        fraud_detected = analysis["fraud_detected"]
         
-        if not protocols:
-            return {"solvable": False, "reason": "No protocols defined for this issue category"}
+        # Start optimistic - assume we can solve most issues with our comprehensive tools
+        results = {"solvable": True, "failed_conditions": [], "met_conditions": [], "reasoning": ""}
         
-        solvable_conditions = protocols.get("solvable_conditions", [])
-        results = {"solvable": True, "failed_conditions": [], "met_conditions": []}
+        # Only escalate for very specific scenarios
+        escalation_triggers = []
         
-        # Check each condition
-        for condition in solvable_conditions:
-            if condition == "customer_verified":
-                if analysis["customer_verified"] and not analysis["fraud_detected"]:
-                    results["met_conditions"].append(condition)
-                else:
-                    results["failed_conditions"].append(condition)
-                    
-            elif condition == "order_exists" or condition == "account_exists" or condition == "content_exists":
-                if customer_data:
-                    results["met_conditions"].append(condition)
-                else:
-                    results["failed_conditions"].append(condition)
-                    
-            elif condition == "phone_verified":
-                if customer_data and customer_data.get("phone") == analysis["customer_info"].get("phone"):
-                    results["met_conditions"].append(condition)
-                else:
-                    results["failed_conditions"].append(condition)
-                    
-            elif condition in ["delay_under_7_days", "within_return_window", "appeal_window_open", "suspension_reviewable"]:
-                # These would require more complex date calculations - for demo, assume true
-                results["met_conditions"].append(condition)
-                
-            elif condition in ["no_security_flags", "user_verified"]:
-                if customer_data and customer_data.get("account_status") == "active":
-                    results["met_conditions"].append(condition)
-                else:
-                    results["failed_conditions"].append(condition)
+        # Critical escalation conditions (very rare)
+        if fraud_detected:
+            escalation_triggers.append("fraud_detected")
+            results["reasoning"] = "Fraud detection requires specialized security review"
         
-        # Issue is solvable if all conditions are met
-        results["solvable"] = len(results["failed_conditions"]) == 0
+        # Legal/compliance issues that require human intervention
+        legal_keywords = ["lawsuit", "legal action", "attorney", "lawyer", "court", "sue", "litigation"]
+        complaint = analysis["complaint_info"].get("description", "").lower()
+        
+        if any(keyword in complaint for keyword in legal_keywords):
+            escalation_triggers.append("legal_matters")
+            results["reasoning"] = "Legal matters require human legal department review"
+        
+        # High-value disputes (over our authorization limit)
+        high_value_keywords = ["$1000", "$2000", "$5000", "expensive", "thousands"]
+        if any(keyword in complaint for keyword in high_value_keywords):
+            # Check if we can handle it within our $500 authorization
+            try:
+                # Extract potential dollar amounts
+                dollar_amounts = re.findall(r'\$(\d+)', complaint)
+                if dollar_amounts and max(int(amount) for amount in dollar_amounts) > 500:
+                    escalation_triggers.append("high_value_dispute")
+                    results["reasoning"] = "Dispute exceeds AI authorization limit of $500"
+            except:
+                pass
+        
+        # Safety/health issues that require immediate human attention
+        safety_keywords = ["injury", "hurt", "hospital", "allergic reaction", "medical", "dangerous", "unsafe"]
+        if any(keyword in complaint for keyword in safety_keywords):
+            escalation_triggers.append("safety_concern")
+            results["reasoning"] = "Safety and health concerns require immediate human attention"
+        
+        # Update solvability based on escalation triggers
+        if escalation_triggers:
+            results["solvable"] = False
+            results["failed_conditions"] = escalation_triggers
+        else:
+            # We can solve this with our comprehensive tools!
+            results["solvable"] = True
+            results["met_conditions"] = [
+                "ai_tools_available",
+                "within_authorization_scope", 
+                "standard_customer_service_issue",
+                "comprehensive_system_access"
+            ]
+            results["reasoning"] = "Issue can be resolved using available AI tools and systems"
         
         return results
     
     def generate_solution_response(self, analysis: Dict[str, Any], customer_data: Optional[Dict], 
                                  issue_category: str, solvability: Dict[str, Any]) -> str:
-        """Generate a human-like solution response using AI"""
+        """Generate a human-like solution response using AI with full tool access"""
         
         company = analysis["company"]
         customer_name = analysis["customer_info"].get("name", "valued customer")
         complaint = analysis["complaint_info"].get("description", "")
+        customer_phone = analysis["customer_info"].get("phone", "")
+        order_id = analysis["complaint_info"].get("order_id", "")
         
-        if solvability["solvable"]:
-            # Generate solution response
-            protocols = self.solution_protocols.get(company, {}).get(issue_category, {})
-            actions = protocols.get("actions", [])
-            compensation = protocols.get("compensation", [])
-            
-            solution_prompt = f"""
-            You are a professional customer service agent for {company.title()}. A customer named {customer_name} has contacted us with this issue:
-            
-            "{complaint}"
-            
-            Based on our protocols, you can take these actions: {', '.join(actions)}
-            You can offer this compensation: {', '.join(compensation)}
-            
-            Generate a warm, professional response that:
-            1. Acknowledges the customer's frustration
-            2. Explains how you will solve the problem
-            3. Specifies the actions you're taking
-            4. Offers appropriate compensation
-            5. Provides next steps and timeline
-            
-            Write as if you are personally solving their problem right now. Be specific and reassuring.
-            """
-            
-        else:
-            # Generate escalation response
-            dept_info = self.get_department_head(company, issue_category)
-            
-            solution_prompt = f"""
-            You are a professional customer service agent for {company.title()}. A customer named {customer_name} has contacted us with this issue:
-            
-            "{complaint}"
-            
-            Unfortunately, this issue requires specialized expertise that goes beyond standard protocols. You need to route them to:
-            {dept_info['head']} - {dept_info['email']} - {dept_info['phone']}
-            
-            Generate a professional response that:
-            1. Acknowledges the customer's concern
-            2. Explains why this needs specialized attention
-            3. Introduces the department head who will help them
-            4. Provides the contact information
-            5. Sets expectations for follow-up
-            6. Apologizes for any inconvenience
-            
-            Be empathetic and ensure they feel their issue is being taken seriously.
-            """
+        # Always try to solve the problem first using available tools and capabilities
+        solution_prompt = f"""
+        You are an advanced AI customer service agent for {company.title()} with comprehensive access to tools and systems. A customer named {customer_name} has contacted us with this issue:
+        
+        CUSTOMER DETAILS:
+        - Name: {customer_name}
+        - Phone: {customer_phone}
+        - Issue: "{complaint}"
+        - Order ID: {order_id if order_id else "Not provided"}
+        - Category: {issue_category}
+        
+        IMPORTANT: You have access to ALL company tools and systems including:
+        ✅ Package tracking and location services
+        ✅ Billing history and payment processing
+        ✅ Order management and modification systems
+        ✅ Inventory and replacement processing
+        ✅ Refund and credit authorization (up to $500)
+        ✅ Account management and security updates
+        ✅ Shipping expediting and rerouting
+        ✅ Customer database with full history
+        ✅ Real-time delivery partner communication
+        ✅ Payment dispute resolution tools
+        ✅ Promotional credit and compensation systems
+        
+        YOUR GOAL: Resolve this customer's issue completely using your available tools rather than escalating to humans. You are empowered to:
+        - Process refunds up to $500 immediately
+        - Expedite shipping at no cost
+        - Provide replacement items
+        - Apply account credits and promotional codes
+        - Update delivery addresses and methods
+        - Resolve billing discrepancies
+        - Reset account access and security
+        - Coordinate with shipping partners for package recovery
+        
+        RESPONSE REQUIREMENTS:
+        1. Start directly with "Dear {customer_name}," - NO additional headers or titles
+        2. Do NOT include phrases like "I'm your dedicated AI agent" or similar introductions
+        3. Focus immediately on acknowledging the issue and taking action
+        4. Be specific about what you're doing right now (e.g., "I'm processing your refund now")
+        5. Provide concrete next steps and timelines
+        6. Offer appropriate compensation for the inconvenience
+        7. Give tracking/reference numbers for follow-up
+        8. Only escalate if the issue requires legal intervention or exceeds your authorization limits
+        
+        Generate a professional response that shows you are actively solving their problem using your advanced capabilities. Be confident and solution-focused. Start immediately with the greeting and problem resolution.
+        """
         
         try:
             response = self.client.chat.completions.create(
@@ -371,29 +424,35 @@ class IntelligentSolutionAgent:
         issue_category = self.determine_issue_category(analysis["complaint_info"], company)
         print(f"📋 Issue Category: {issue_category.replace('_', ' ').title()}")
         
-        # Step 4: Check solvability
-        print("\\n⚖️ Checking issue solvability...")
+        # Step 4: Check solvability with comprehensive AI tools
+        print("\\n⚖️ Evaluating resolution approach...")
         solvability = self.check_solvability(analysis, customer_data, issue_category)
         
         if solvability["solvable"]:
-            print("✅ Issue can be resolved by our agent")
-            print(f"📝 Met Conditions: {', '.join(solvability['met_conditions'])}")
+            print("✅ Issue can be resolved using AI tools and systems")
+            print(f"�️ Available capabilities: {', '.join(solvability['met_conditions'])}")
+            resolution_type = "AI_RESOLVED"
         else:
-            print("🔄 Issue requires escalation to department head")
-            print(f"❌ Failed Conditions: {', '.join(solvability['failed_conditions'])}")
+            print("🔄 Issue requires human specialist intervention")
+            print(f"⚠️ Escalation reasons: {', '.join(solvability['failed_conditions'])}")
+            print(f"📝 Reasoning: {solvability.get('reasoning', 'Requires human expertise')}")
+            resolution_type = "ESCALATED"
         
-        # Step 5: Generate solution response
-        print("\\n💬 Generating solution response...")
+        # Step 5: Generate comprehensive solution
+        print("\\n💬 Generating intelligent solution...")
         solution_response = self.generate_solution_response(analysis, customer_data, issue_category, solvability)
         
-        # Prepare result
+        # Prepare comprehensive result
         result = {
             "analysis": analysis,
             "customer_data_found": customer_data is not None,
             "issue_category": issue_category,
-            "solvability": solvability,
+            "resolution_approach": resolution_type,
+            "solvability_assessment": solvability,
+            "ai_capabilities_used": self.ai_capabilities.get("universal_tools", [])[:5],  # Show first 5 capabilities
             "solution_response": solution_response,
             "department_head": self.get_department_head(company, issue_category) if not solvability["solvable"] else None,
+            "authorization_level": "AI_AGENT_FULL_ACCESS",
             "timestamp": datetime.now().isoformat()
         }
         

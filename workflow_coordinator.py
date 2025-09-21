@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 
 # Import our modules
 try:
-    from conversational_agent_simplified import start_conversation_session
+    from conversational_agent_simplified import start_conversation_session, TTSManager
     from langgraph_workflow import execute_routing_workflow
     from intelligent_solution_agent import IntelligentSolutionAgent
     print("✅ Workflow modules imported successfully")
@@ -39,6 +39,14 @@ class CustomerServiceWorkflowCoordinator:
     def __init__(self):
         self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
         self.workflow_log = []
+        
+        # Initialize TTS Manager for final solution delivery
+        try:
+            self.tts_manager = TTSManager()
+            print("🔊 TTS system initialized for solution delivery")
+        except Exception as e:
+            print(f"⚠️ TTS initialization failed: {e}")
+            self.tts_manager = None
         
         # Ensure output directories exist
         os.makedirs("workflow_results", exist_ok=True)
@@ -192,10 +200,10 @@ class CustomerServiceWorkflowCoordinator:
                             self.log_workflow_step(
                                 "solution_agent", 
                                 "success", 
-                                f"Solution generated: {'Resolved' if solution_result['solvability']['solvable'] else 'Escalated'}",
+                                f"Solution generated: {'Resolved' if solution_result['solvability_assessment']['solvable'] else 'Escalated'}",
                                 {
                                     "issue_category": solution_result["issue_category"],
-                                    "solvable": solution_result["solvability"]["solvable"],
+                                    "solvable": solution_result["solvability_assessment"]["solvable"],
                                     "customer_found": solution_result["customer_data_found"]
                                 }
                             )
@@ -282,8 +290,8 @@ class CustomerServiceWorkflowCoordinator:
                 print(f"   • Status: ⚠️ Skipped - {solution_result.get('reason', 'Unknown')}")
             elif solution_result.get("status") == "error":
                 print(f"   • Status: ❌ Error - {solution_result.get('error', 'Unknown')}")
-            elif "solvability" in solution_result:
-                solvable = solution_result["solvability"]["solvable"]
+            elif "solvability_assessment" in solution_result:
+                solvable = solution_result["solvability_assessment"]["solvable"]
                 print(f"   • Issue Category: {solution_result['issue_category'].replace('_', ' ').title()}")
                 print(f"   • Customer in Database: {'✅ Yes' if solution_result['customer_data_found'] else '❌ No'}")
                 print(f"   • Resolution: {'✅ Solved by Agent' if solvable else '🔄 Escalated to Department Head'}")
@@ -303,6 +311,17 @@ class CustomerServiceWorkflowCoordinator:
                 else:
                     print(solution_response)
                 print("─" * 70)
+                
+                # Speak the solution response using TTS
+                if self.tts_manager and self.tts_manager.enabled and solution_response != "No response generated":
+                    print("\n🔊 Speaking final solution...")
+                    try:
+                        self.tts_manager.speak(solution_response)
+                        print("✅ Solution delivered via audio")
+                    except Exception as e:
+                        print(f"⚠️ Audio delivery failed: {e}")
+                else:
+                    print("⚠️ Audio delivery not available")
         
         # Error Information
         if not result["success"] and result.get("error_message"):
@@ -397,8 +416,22 @@ def demo_workflow_with_mock_data():
                         print("\\n" + "="*70)
                         print("🎯 INTELLIGENT SOLUTION AGENT RESPONSE")
                         print("="*70)
-                        print(solution_result["solution_response"])
+                        solution_response = solution_result["solution_response"]
+                        print(solution_response)
                         print("="*70)
+                        
+                        # Speak the solution response using TTS
+                        print("\\n🔊 Speaking final solution...")
+                        try:
+                            from conversational_agent_simplified import TTSManager
+                            tts = TTSManager()
+                            if tts.enabled:
+                                tts.speak(solution_response)
+                                print("✅ Solution delivered via audio")
+                            else:
+                                print("⚠️ TTS not enabled")
+                        except Exception as e:
+                            print(f"⚠️ Audio delivery failed: {e}")
                     else:
                         print(f"\\n❌ Solution agent error: {solution_result['error']}")
                         

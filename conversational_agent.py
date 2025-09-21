@@ -9,9 +9,10 @@ from dotenv import load_dotenv
 import wave
 import sounddevice as sd
 import numpy as np
-import pyttsx3
+import requests
 import threading
 import time
+import google.generativeai as genai
 
 # Import prototype agents for routing
 try:
@@ -79,26 +80,137 @@ def get_timestamped_filename(prefix: str, extension: str, folder: str) -> str:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     return os.path.join(folder, f"{prefix}_{timestamp}.{extension}")
 
-# Text-to-Speech System
+# Text-to-Speech System using Murf
 class TTSManager:
     def __init__(self):
-        self.engine = pyttsx3.init()
-        # Set properties for better speech quality
-        self.engine.setProperty('rate', 150)  # Speed of speech
-        self.engine.setProperty('volume', 0.9)  # Volume level (0.0 to 1.0)
+        # Initialize Murf TTS with API key from environment
+        self.murf_api_key = os.getenv("MURF_API_KEY")
+        if not self.murf_api_key:
+            print("⚠️ Warning: MURF_API_KEY not found. TTS will be disabled.")
+            self.enabled = False
+        else:
+            self.enabled = True
+            
+        # Murf TTS configuration
+        self.voice_id = "en-US-natalie"  # Valid Murf voice ID
+        self.api_url = "https://api.murf.ai/v1/speech/generate"
+        self.sample_rate = 44100  # Valid Murf sample rate
         
-        # Try to set a female voice if available
-        voices = self.engine.getProperty('voices')
-        for voice in voices:
-            if 'female' in voice.name.lower() or 'zira' in voice.name.lower():
-                self.engine.setProperty('voice', voice.id)
-                break
-    
     def speak(self, text: str):
-        """Convert text to speech and play it"""
+        """Convert text to speech using Murf and play it"""
         print(f"🤖 Agent: {text}")
-        self.engine.say(text)
-        self.engine.runAndWait()
+        
+        if not self.enabled:
+            return
+            
+        try:
+            # Generate speech using Murf API
+            audio_data = self._generate_speech(text)
+            if audio_data:
+                self._play_audio(audio_data)
+        except Exception as e:
+            print(f"⚠️ TTS Error: {e}")
+    
+    def _generate_speech(self, text: str) -> bytes:
+        """Generate speech using Murf API"""
+        headers = {
+            "api-key": self.murf_api_key,
+            "Content-Type": "application/json"
+        }
+        
+        payload = {
+            "voiceId": self.voice_id,
+            "text": text,
+            "rate": 0,  # Normal speed as integer
+            "pitch": 0,  # Normal pitch as integer  
+            "sampleRate": 44100,  # Valid sample rate for Murf
+            "format": "wav"  # Back to WAV format
+        }
+        
+        response = requests.post(self.api_url, json=payload, headers=headers)
+        
+        if response.status_code == 200:
+            # Murf returns JSON with audio URL
+            response_data = response.json()
+            if 'audioFile' in response_data:
+                audio_url = response_data['audioFile']
+                
+                # Download the actual audio file
+                audio_response = requests.get(audio_url, timeout=30)
+                audio_response.raise_for_status()
+                
+                print(f"🔊 Audio file size: {len(audio_response.content)} bytes")
+                return audio_response.content
+            else:
+                print(f"❌ No audioFile in response: {response_data}")
+                return None
+        else:
+            print(f"⚠️ Murf API Error: {response.status_code} - {response.text}")
+            return None
+    
+    def _play_audio(self, audio_data: bytes):
+        """Play audio data with improved format handling"""
+        try:
+            # Save to temporary file
+            temp_file = "temp_tts_output.wav"  # Use WAV extension
+            with open(temp_file, "wb") as f:
+                f.write(audio_data)
+            
+            print(f"🔊 Audio file size: {len(audio_data)} bytes")
+            
+            # Try pygame for better audio playback
+            try:
+                import pygame
+                pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=1024)
+                pygame.mixer.music.load(temp_file)
+                pygame.mixer.music.play()
+                
+                # Wait for audio to finish
+                while pygame.mixer.music.get_busy():
+                    pygame.time.wait(100)
+                
+                pygame.mixer.quit()
+                print("✅ Audio played successfully with pygame")
+                
+            except ImportError:
+                # Fallback to system commands
+                try:
+                    import platform
+                    system = platform.system().lower()
+                    print(f"🔊 Using system audio player for {system}")
+                    
+                    if system == "linux":
+                        # Try multiple players
+                        players = ["aplay", "paplay", "pulseaudio"]
+                        for player in players:
+                            result = os.system(f"which {player} > /dev/null 2>&1")
+                            if result == 0:  # Player found
+                                os.system(f"{player} {temp_file}")
+                                break
+                    elif system == "darwin":  # macOS
+                        os.system(f"afplay {temp_file}")
+                    elif system == "windows":
+                        os.system(f"start /wait {temp_file}")
+                    else:
+                        print("🔊 Audio file saved as temp_tts_output.wav")
+                        
+                except Exception as e:
+                    print(f"⚠️ System audio playback failed: {e}")
+            
+            except Exception as e:
+                print(f"⚠️ Pygame audio playback failed: {e}")
+                # Keep the temp file for debugging
+                print(f"🔍 Debug: Audio file saved as {temp_file} for inspection")
+                return
+            
+            # Clean up temp file
+            try:
+                os.remove(temp_file)
+            except:
+                pass
+            
+        except Exception as e:
+            print(f"⚠️ Audio playback error: {e}")
     
     def speak_async(self, text: str):
         """Convert text to speech asynchronously"""
@@ -316,7 +428,7 @@ def generate_next_question(api_key: str, state: ConversationState) -> str:
     return response.text.strip()
 
 # Extract information from customer response
-def extract_info_from_response(groq_client: Groq, question: str, response: str, current_state: ConversationState) -> Dict[str, Any]:
+def extract_info_from_response(api_key: str, question: str, response: str, current_state: ConversationState) -> Dict[str, Any]:
     """Extract relevant information from customer response"""
     
     extraction_prompt = f"""
