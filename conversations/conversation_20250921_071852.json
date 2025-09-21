@@ -1,0 +1,65 @@
+{
+  "conversation_metadata": {
+    "session_id": "20250921_071852",
+    "timestamp": "2025-09-21T07:18:52.122398",
+    "total_questions": 3,
+    "conversation_length": 8
+  },
+  "customer_info": {
+    "name": null,
+    "phone": null,
+    "email": null,
+    "address": null
+  },
+  "complaint_info": {
+    "description": "Package not received despite showing as 'delivered' on the Amazon website.",
+    "category": null,
+    "urgency_level": "High",
+    "order_id": null,
+    "product_name": null,
+    "purchase_date": null
+  },
+  "company_info": {
+    "company_name": "unknown",
+    "confidence": 0.0
+  },
+  "conversation_history": [
+    {
+      "role": "agent",
+      "message": "Hello! I'm your AI customer service assistant. I'll help you with your issue by asking a few questions. Let's start!"
+    },
+    {
+      "role": "agent",
+      "message": "Could you please tell me your name and describe the issue you're experiencing?"
+    },
+    {
+      "role": "customer",
+      "message": " I did not get my package but I had to show him delivered on the website of Amazon."
+    },
+    {
+      "role": "agent",
+      "message": "Could you please provide your order number or the tracking number for the package?"
+    },
+    {
+      "role": "customer",
+      "message": ""
+    },
+    {
+      "role": "agent",
+      "message": "Could you please provide your order number or the tracking number associated with the package?"
+    },
+    {
+      "role": "customer",
+      "message": " 3,2,2"
+    },
+    {
+      "role": "agent",
+      "message": "Thank you for providing the information. Let me process what we've discussed."
+    }
+  ],
+  "processing_info": {
+    "status": "conversation_completed",
+    "ready_for_routing": true,
+    "created_timestamp": "2025-09-21T07:18:52.122448"
+  }
+}

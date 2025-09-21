@@ -1,0 +1,208 @@
+{
+  "customers": [
+    {
+      "customer_id": "FKT001234567",
+      "name": "Rajesh Kumar",
+      "phone": "+91-98765-43210",
+      "email": "rajesh.kumar@email.com", 
+      "address": "A-123, Sector 62, Noida, UP 201309",
+      "account_status": "active",
+      "flipkart_plus_member": true,
+      "recent_orders": [
+        {
+          "order_id": "OD112233445566778899",
+          "product": "Samsung Galaxy M34 5G",
+          "order_date": "2025-09-16",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "FKT002345678",
+      "name": "Priya Sharma",
+      "phone": "+91-87654-32109",
+      "email": "priya.sharma@email.com",
+      "address": "B-456, Banjara Hills, Hyderabad, TG 500034",
+      "account_status": "active",
+      "flipkart_plus_member": false,
+      "recent_orders": [
+        {
+          "order_id": "OD223344556677889900",
+          "product": "Boat Airdopes 141",
+          "order_date": "2025-09-18",
+          "status": "shipped"
+        }
+      ],
+      "previous_complaints": [
+        {
+          "date": "2025-08-12",
+          "issue": "Product quality issue",
+          "resolution": "Refund processed"
+        }
+      ]
+    },
+    {
+      "customer_id": "FKT003456789",
+      "name": "Amit Patel",
+      "phone": "+91-76543-21098",
+      "email": "amit.patel@email.com",
+      "address": "C-789, Satellite, Ahmedabad, GJ 380015",
+      "account_status": "active",
+      "flipkart_plus_member": true,
+      "recent_orders": [
+        {
+          "order_id": "OD334455667788990011",
+          "product": "HP Pavilion Gaming Laptop",
+          "order_date": "2025-09-10",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "FKT004567890",
+      "name": "Sneha Singh",
+      "phone": "+91-65432-10987",
+      "email": "sneha.singh@email.com",
+      "address": "D-321, Salt Lake, Kolkata, WB 700064",
+      "account_status": "active",
+      "flipkart_plus_member": true,
+      "recent_orders": [
+        {
+          "order_id": "OD445566778899001122",
+          "product": "Nike Air Force 1 Shoes",
+          "order_date": "2025-09-20",
+          "status": "processing"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "FKT005678901",
+      "name": "Vikram Reddy",
+      "phone": "+91-54321-09876",
+      "email": "vikram.reddy@email.com",
+      "address": "E-654, Jubilee Hills, Hyderabad, TG 500033",
+      "account_status": "active",
+      "flipkart_plus_member": false,
+      "recent_orders": [
+        {
+          "order_id": "OD556677889900112233",
+          "product": "Realme 11 Pro+ 5G",
+          "order_date": "2025-09-12",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": [
+        {
+          "date": "2025-07-28",
+          "issue": "Delayed delivery",
+          "resolution": "Compensation provided"
+        }
+      ]
+    },
+    {
+      "customer_id": "FKT006789012",
+      "name": "Kavita Joshi",
+      "phone": "+91-43210-98765",
+      "email": "kavita.joshi@email.com",
+      "address": "F-987, Koramangala, Bangalore, KA 560034",
+      "account_status": "active",
+      "flipkart_plus_member": true,
+      "recent_orders": [
+        {
+          "order_id": "OD667788990011223344",
+          "product": "Myntra Fashion Kurti Set",
+          "order_date": "2025-09-19",
+          "status": "shipped"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "FKT007890123",
+      "name": "Arjun Mehta",
+      "phone": "+91-32109-87654",
+      "email": "arjun.mehta@email.com",
+      "address": "G-147, Andheri West, Mumbai, MH 400058",
+      "account_status": "active",
+      "flipkart_plus_member": false,
+      "recent_orders": [
+        {
+          "order_id": "OD778899001122334455",
+          "product": "Mi Smart TV 43 inch",
+          "order_date": "2025-09-16",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "FKT008901234",
+      "name": "Deepika Agarwal",
+      "phone": "+91-21098-76543",
+      "email": "deepika.agarwal@email.com",
+      "address": "H-258, CP, New Delhi, DL 110001",
+      "account_status": "active",
+      "flipkart_plus_member": true,
+      "recent_orders": [
+        {
+          "order_id": "OD889900112233445566",
+          "product": "Lakme Cosmetics Kit",
+          "order_date": "2025-09-14",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": [
+        {
+          "date": "2025-06-18",
+          "issue": "Wrong color received",
+          "resolution": "Exchange completed"
+        }
+      ]
+    },
+    {
+      "customer_id": "FKT009012345",
+      "name": "Rohit Gupta",
+      "phone": "+91-10987-65432",
+      "email": "rohit.gupta@email.com",
+      "address": "I-369, Sector 18, Gurgaon, HR 122015",
+      "account_status": "active",
+      "flipkart_plus_member": false,
+      "recent_orders": [
+        {
+          "order_id": "OD990011223344556677",
+          "product": "JBL Flip 6 Bluetooth Speaker",
+          "order_date": "2025-09-17",
+          "status": "shipped"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "FKT010123456",
+      "name": "Anita Rao",
+      "phone": "+91-09876-54321",
+      "email": "anita.rao@email.com",
+      "address": "J-741, Electronic City, Bangalore, KA 560100",
+      "account_status": "active",
+      "flipkart_plus_member": true,
+      "recent_orders": [
+        {
+          "order_id": "OD001122334455667788",
+          "product": "Philips Air Fryer HD9200",
+          "order_date": "2025-09-13",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": [
+        {
+          "date": "2025-05-25",
+          "issue": "Defective product",
+          "resolution": "Replacement sent"
+        }
+      ]
+    }
+  ]
+}

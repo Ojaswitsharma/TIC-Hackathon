@@ -1,0 +1,51 @@
+{
+  "workflow_info": {
+    "prototype_name": "Amazon Customer Service",
+    "execution_timestamp": "2025-09-21T09:05:00.367360",
+    "routing_confidence": 1.0
+  },
+  "customer_verification": {
+    "verified": true,
+    "verification_method": "phone_number"
+  },
+  "processing_status": {
+    "status": "completed",
+    "fraud_detected": false
+  },
+  "original_conversation": {
+    "conversation_metadata": {
+      "session_id": "20250921_090500",
+      "timestamp": "2025-09-21T09:05:00.306597",
+      "total_questions": 6,
+      "conversation_length": 14
+    },
+    "customer_info": {
+      "name": "Ramesh",
+      "phone": "888 980 555",
+      "email": null,
+      "address": null
+    },
+    "complaint_info": {
+      "description": "Did not receive my paulsa, even though it says delivered.",
+      "category": "delivery",
+      "urgency_level": "high",
+      "order_id": "1 2 2 1",
+      "product_name": "Samsung S24 Ultra Phone",
+      "purchase_date": "19 September 25"
+    },
+    "company_info": {
+      "company_name": "amazon",
+      "confidence": 1.0
+    },
+    "processing_info": {
+      "status": "conversation_completed",
+      "ready_for_routing": true,
+      "created_timestamp": "2025-09-21T09:05:00.306639"
+    }
+  },
+  "prototype_metadata": {
+    "agent_type": "Amazon",
+    "processing_stage": "prototype_completed",
+    "workflow_version": "1.0"
+  }
+}

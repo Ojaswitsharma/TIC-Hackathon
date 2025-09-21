@@ -1,0 +1,247 @@
+{
+  "session_info": {
+    "session_id": "20250921_075149",
+    "start_time": "2025-09-21T07:51:49.978596",
+    "end_time": "2025-09-21T07:54:10.666746",
+    "total_steps": 4
+  },
+  "workflow_log": [
+    {
+      "timestamp": "2025-09-21T07:51:49.978596",
+      "session_id": "20250921_075149",
+      "step": "conversational_agent",
+      "status": "progress",
+      "message": "Starting intelligent conversation with customer",
+      "data": {}
+    },
+    {
+      "timestamp": "2025-09-21T07:54:10.636904",
+      "session_id": "20250921_075149",
+      "step": "conversational_agent",
+      "status": "success",
+      "message": "Conversation completed - Company: unknown",
+      "data": {
+        "customer": null,
+        "company": "unknown",
+        "confidence": 0.0
+      }
+    },
+    {
+      "timestamp": "2025-09-21T07:54:10.636993",
+      "session_id": "20250921_075149",
+      "step": "langgraph_routing",
+      "status": "progress",
+      "message": "Starting company-specific routing workflow",
+      "data": {}
+    },
+    {
+      "timestamp": "2025-09-21T07:54:10.666730",
+      "session_id": "20250921_075149",
+      "step": "workflow_error",
+      "status": "error",
+      "message": "Workflow failed: Routing failed: Company routing error: No prototype available for company: unknown",
+      "data": {}
+    }
+  ],
+  "final_result": {
+    "success": false,
+    "session_id": "20250921_075149",
+    "conversation_result": {
+      "conversation_data": {
+        "conversation_metadata": {
+          "session_id": "20250921_075410",
+          "timestamp": "2025-09-21T07:54:10.616924",
+          "total_questions": 6,
+          "conversation_length": 14
+        },
+        "customer_info": {
+          "name": null,
+          "phone": "888980555",
+          "email": "ojasadiradejimil.com",
+          "address": null
+        },
+        "complaint_info": {
+          "description": null,
+          "category": null,
+          "urgency_level": "high",
+          "order_id": null,
+          "product_name": "Samsung phone",
+          "purchase_date": "19th September 2025"
+        },
+        "company_info": {
+          "company_name": "unknown",
+          "confidence": 0.0
+        },
+        "conversation_history": [
+          {
+            "role": "agent",
+            "message": "Hello! I'm your AI customer service assistant. I'll help you with your issue by asking a few questions. Let's start!"
+          },
+          {
+            "role": "agent",
+            "message": "Could you please tell me your name and describe the issue you're experiencing?"
+          },
+          {
+            "role": "customer",
+            "message": " is John and the issue I am experiencing is that my order is showing delivered on Amazon, but it does not actually been delivered."
+          },
+          {
+            "role": "agent",
+            "message": "Which company or service is this complaint about? For example, Amazon, Facebook, Flipkart, or another company?"
+          },
+          {
+            "role": "customer",
+            "message": " aramız var"
+          },
+          {
+            "role": "agent",
+            "message": "Could you please provide your phone number and email address for our records?"
+          },
+          {
+            "role": "customer",
+            "message": " Phone number is 888980555 and email is ojasadiradejimil.com"
+          },
+          {
+            "role": "agent",
+            "message": "If this involves an order or transaction, please provide the order number, tracking number, or transaction ID."
+          },
+          {
+            "role": "customer",
+            "message": " Tracking number is 1 2 2 1"
+          },
+          {
+            "role": "agent",
+            "message": "What product or service is involved, and when did you purchase or use it?"
+          },
+          {
+            "role": "customer",
+            "message": " It is a Samsung phone and it was purchased on 19th September 2025."
+          },
+          {
+            "role": "agent",
+            "message": "Is there any additional information you'd like to add about this issue?"
+          },
+          {
+            "role": "customer",
+            "message": " I am a premium member."
+          },
+          {
+            "role": "agent",
+            "message": "Thank you for providing all the information. Let me process what we've discussed."
+          }
+        ],
+        "processing_info": {
+          "status": "conversation_completed",
+          "ready_for_routing": true,
+          "created_timestamp": "2025-09-21T07:54:10.616973"
+        }
+      },
+      "conversation_file": "conversations/conversation_20250921_075410.json"
+    },
+    "routing_result": {
+      "conversation_json": {
+        "conversation_metadata": {
+          "session_id": "20250921_075410",
+          "timestamp": "2025-09-21T07:54:10.616924",
+          "total_questions": 6,
+          "conversation_length": 14
+        },
+        "customer_info": {
+          "name": null,
+          "phone": "888980555",
+          "email": "ojasadiradejimil.com",
+          "address": null
+        },
+        "complaint_info": {
+          "description": null,
+          "category": null,
+          "urgency_level": "high",
+          "order_id": null,
+          "product_name": "Samsung phone",
+          "purchase_date": "19th September 2025"
+        },
+        "company_info": {
+          "company_name": "unknown",
+          "confidence": 0.0
+        },
+        "conversation_history": [
+          {
+            "role": "agent",
+            "message": "Hello! I'm your AI customer service assistant. I'll help you with your issue by asking a few questions. Let's start!"
+          },
+          {
+            "role": "agent",
+            "message": "Could you please tell me your name and describe the issue you're experiencing?"
+          },
+          {
+            "role": "customer",
+            "message": " is John and the issue I am experiencing is that my order is showing delivered on Amazon, but it does not actually been delivered."
+          },
+          {
+            "role": "agent",
+            "message": "Which company or service is this complaint about? For example, Amazon, Facebook, Flipkart, or another company?"
+          },
+          {
+            "role": "customer",
+            "message": " aramız var"
+          },
+          {
+            "role": "agent",
+            "message": "Could you please provide your phone number and email address for our records?"
+          },
+          {
+            "role": "customer",
+            "message": " Phone number is 888980555 and email is ojasadiradejimil.com"
+          },
+          {
+            "role": "agent",
+            "message": "If this involves an order or transaction, please provide the order number, tracking number, or transaction ID."
+          },
+          {
+            "role": "customer",
+            "message": " Tracking number is 1 2 2 1"
+          },
+          {
+            "role": "agent",
+            "message": "What product or service is involved, and when did you purchase or use it?"
+          },
+          {
+            "role": "customer",
+            "message": " It is a Samsung phone and it was purchased on 19th September 2025."
+          },
+          {
+            "role": "agent",
+            "message": "Is there any additional information you'd like to add about this issue?"
+          },
+          {
+            "role": "customer",
+            "message": " I am a premium member."
+          },
+          {
+            "role": "agent",
+            "message": "Thank you for providing all the information. Let me process what we've discussed."
+          }
+        ],
+        "processing_info": {
+          "status": "conversation_completed",
+          "ready_for_routing": true,
+          "created_timestamp": "2025-09-21T07:54:10.616973"
+        }
+      },
+      "conversation_file_path": null,
+      "detected_company": null,
+      "company_confidence": null,
+      "routing_decision": null,
+      "prototype_result": null,
+      "prototype_output_file": null,
+      "processing_stage": "routing_failed",
+      "processing_timestamp": "2025-09-21T07:54:10.665640",
+      "errors": [
+        "Company routing error: No prototype available for company: unknown"
+      ],
+      "workflow_status": "failed"
+    },
+    "error_message": "Routing failed: Company routing error: No prototype available for company: unknown"
+  },
+  "status": "failed"
+}

@@ -1,0 +1,408 @@
+{
+  "customers": [
+    {
+      "customer_id": "1",
+      "name": "Alex Johnson",
+      "phone": "+1-555-0101",
+      "email": "alex.johnson@email.com", 
+      "username": "@alexjohnson2024",
+      "account_status": "active",
+      "account_type": "personal",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "post_reported",
+          "content_id": "POST_112233445566",
+          "date": "2025-09-18",
+          "status": "under_review"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "2",
+      "name": "Maria Rodriguez",
+      "phone": "+1-555-0202",
+      "email": "maria.rodriguez@email.com",
+      "username": "@mariarodriguez",
+      "account_status": "active",
+      "account_type": "business",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "ad_campaign",
+          "content_id": "AD_223344556677",
+          "date": "2025-09-19",
+          "status": "running"
+        }
+      ],
+      "previous_complaints": [
+        {
+          "date": "2025-08-15",
+          "issue": "Account temporarily suspended",
+          "resolution": "Account restored"
+        }
+      ]
+    },
+    {
+      "customer_id": "3",
+      "name": "David Chen",
+      "phone": "+1-555-0303",
+      "email": "david.chen@email.com",
+      "username": "@davidchen_official",
+      "account_status": "active",
+      "account_type": "creator",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "live_stream",
+          "content_id": "LIVE_334455667788",
+          "date": "2025-09-20",
+          "status": "completed"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "4",
+      "name": "Sarah Williams",
+      "phone": "+1-555-0404",
+      "email": "sarah.williams@email.com",
+      "username": "@sarahwill",
+      "account_status": "active",
+      "account_type": "personal",
+      "verification_status": "unverified",
+      "recent_activity": [
+        {
+          "activity_type": "privacy_setting_change",
+          "content_id": "PRIVACY_445566778899",
+          "date": "2025-09-17",
+          "status": "completed"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "5",
+      "name": "Michael Brown",
+      "phone": "+1-555-0505",
+      "email": "michael.brown@email.com",
+      "username": "@mikebrown2025",
+      "account_status": "restricted",
+      "account_type": "personal",
+      "verification_status": "unverified",
+      "recent_activity": [
+        {
+          "activity_type": "violation_reported",
+          "content_id": "VIOLATION_556677889900",
+          "date": "2025-09-16",
+          "status": "resolved"
+        }
+      ],
+      "previous_complaints": [
+        {
+          "date": "2025-07-30",
+          "issue": "Content removed incorrectly",
+          "resolution": "Content restored"
+        }
+      ]
+    },
+    {
+      "customer_id": "6",
+      "name": "Jennifer Davis",
+      "phone": "+1-555-0606",
+      "email": "jennifer.davis@email.com",
+      "username": "@jenniferdavis",
+      "account_status": "active",
+      "account_type": "business",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "page_creation",
+          "content_id": "PAGE_667788990011",
+          "date": "2025-09-15",
+          "status": "approved"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "7",
+      "name": "Robert Garcia",
+      "phone": "+1-555-0707",
+      "email": "robert.garcia@email.com",
+      "username": "@robertgarcia",
+      "account_status": "active",
+      "account_type": "personal",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "friend_request_sent",
+          "content_id": "FR_778899001122",
+          "date": "2025-09-19",
+          "status": "pending"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "8",
+      "name": "Lisa Martinez",
+      "phone": "+1-555-0808",
+      "email": "lisa.martinez@email.com",
+      "username": "@lisamartinez_official",
+      "account_status": "active",
+      "account_type": "creator",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "monetization_enabled",
+          "content_id": "MONETIZE_889900112233",
+          "date": "2025-09-14",
+          "status": "active"
+        }
+      ],
+      "previous_complaints": [
+        {
+          "date": "2025-06-20",
+          "issue": "Payment not received",
+          "resolution": "Payment processed"
+        }
+      ]
+    },
+    {
+      "customer_id": "9",
+      "name": "Christopher Lee",
+      "phone": "+1-555-0909",
+      "email": "christopher.lee@email.com",
+      "username": "@chrislee",
+      "account_status": "active",
+      "account_type": "personal",
+      "verification_status": "unverified",
+      "recent_activity": [
+        {
+          "activity_type": "group_joined",
+          "content_id": "GROUP_990011223344",
+          "date": "2025-09-18",
+          "status": "approved"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "10",
+      "name": "Amanda Wilson",
+      "phone": "+1-555-1010",
+      "email": "amanda.wilson@email.com",
+      "username": "@amandawilson",
+      "account_status": "active",
+      "account_type": "business",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "marketplace_listing",
+          "content_id": "MARKET_001122334455",
+          "date": "2025-09-13",
+          "status": "active"
+        }
+      ],
+      "previous_complaints": [
+        {
+          "date": "2025-05-22",
+          "issue": "Marketplace transaction issue",
+          "resolution": "Refund issued"
+        }
+      ]
+    },
+    {
+      "customer_id": "11",
+      "name": "Ryan Mitchell",
+      "phone": "+1-555-0311",
+      "email": "ryan.mitchell@email.com",
+      "username": "@ryanmitchell",
+      "account_status": "active",
+      "account_type": "personal",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "privacy_concern",
+          "content_id": "PRIVACY_001",
+          "date": "2025-09-20",
+          "status": "resolved"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "12",
+      "name": "Nicole Adams",
+      "phone": "+1-555-0312",
+      "email": "nicole.adams@email.com",
+      "username": "@nicoleadams2024",
+      "account_status": "active",
+      "account_type": "business",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "ad_account_issue",
+          "content_id": "AD_112233",
+          "date": "2025-09-19",
+          "status": "under_review"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "13",
+      "name": "Brandon Lee",
+      "phone": "+1-555-0313",
+      "email": "brandon.lee@email.com",
+      "username": "@brandonlee",
+      "account_status": "active",
+      "account_type": "personal",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "content_removed",
+          "content_id": "POST_445566",
+          "date": "2025-09-18",
+          "status": "appealed"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "14",
+      "name": "Stephanie Clark",
+      "phone": "+1-555-0314",
+      "email": "stephanie.clark@email.com",
+      "username": "@stephanieclark",
+      "account_status": "active",
+      "account_type": "personal",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "account_security",
+          "content_id": "SEC_789012",
+          "date": "2025-09-17",
+          "status": "resolved"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "15",
+      "name": "Jordan Taylor",
+      "phone": "+1-555-0315",
+      "email": "jordan.taylor@email.com",
+      "username": "@jordantaylor",
+      "account_status": "active",
+      "account_type": "creator",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "monetization_issue",
+          "content_id": "CREATOR_345678",
+          "date": "2025-09-16",
+          "status": "resolved"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "16",
+      "name": "Austin Rodriguez",
+      "phone": "+1-555-0316",
+      "email": "austin.rodriguez@email.com",
+      "username": "@austinrodriguez",
+      "account_status": "active",
+      "account_type": "personal",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "harassment_report",
+          "content_id": "REPORT_901234",
+          "date": "2025-09-15",
+          "status": "investigating"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "17",
+      "name": "Megan Wilson",
+      "phone": "+1-555-0317",
+      "email": "megan.wilson@email.com",
+      "username": "@meganwilson",
+      "account_status": "active",
+      "account_type": "business",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "page_restriction",
+          "content_id": "PAGE_567890",
+          "date": "2025-09-14",
+          "status": "lifted"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "18",
+      "name": "Tyler Johnson",
+      "phone": "+1-555-0318",
+      "email": "tyler.johnson@email.com",
+      "username": "@tylerjohnson",
+      "account_status": "active",
+      "account_type": "personal",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "data_download",
+          "content_id": "DATA_123456",
+          "date": "2025-09-13",
+          "status": "completed"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "19",
+      "name": "Kimberly Davis",
+      "phone": "+1-555-0319",
+      "email": "kimberly.davis@email.com",
+      "username": "@kimberlydavis",
+      "account_status": "active",
+      "account_type": "personal",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "friend_request_spam",
+          "content_id": "SPAM_678901",
+          "date": "2025-09-12",
+          "status": "resolved"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "20",
+      "name": "Marcus Thompson",
+      "phone": "+1-555-0320",
+      "email": "marcus.thompson@email.com",
+      "username": "@marcusthompson",
+      "account_status": "active",
+      "account_type": "creator",
+      "verification_status": "verified",
+      "recent_activity": [
+        {
+          "activity_type": "copyright_claim",
+          "content_id": "COPYRIGHT_234567",
+          "date": "2025-09-11",
+          "status": "counter_claimed"
+        }
+      ],
+      "previous_complaints": []
+    }
+  ]
+}

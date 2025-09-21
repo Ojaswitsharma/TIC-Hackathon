@@ -1,0 +1,51 @@
+{
+  "workflow_info": {
+    "prototype_name": "Amazon Customer Service",
+    "execution_timestamp": "2025-09-21T08:57:32.307455",
+    "routing_confidence": 1.0
+  },
+  "customer_verification": {
+    "verified": true,
+    "verification_method": "phone_number"
+  },
+  "processing_status": {
+    "status": "completed",
+    "fraud_detected": false
+  },
+  "original_conversation": {
+    "conversation_metadata": {
+      "session_id": "20250921_085732",
+      "timestamp": "2025-09-21T08:57:32.242092",
+      "total_questions": 6,
+      "conversation_length": 14
+    },
+    "customer_info": {
+      "name": "Rupa",
+      "phone": "888980555",
+      "email": "123@mail.com",
+      "address": null
+    },
+    "complaint_info": {
+      "description": "Amazon did not deliver my underwear. The order is about my Rupa underwear and I purchased it on 4 December 2024. I am very frustrated.",
+      "category": "delivery",
+      "urgency_level": "high",
+      "order_id": "12213596047",
+      "product_name": "Rupa underwear",
+      "purchase_date": "4 December 2024"
+    },
+    "company_info": {
+      "company_name": "amazon",
+      "confidence": 1.0
+    },
+    "processing_info": {
+      "status": "conversation_completed",
+      "ready_for_routing": true,
+      "created_timestamp": "2025-09-21T08:57:32.242156"
+    }
+  },
+  "prototype_metadata": {
+    "agent_type": "Amazon",
+    "processing_stage": "prototype_completed",
+    "workflow_version": "1.0"
+  }
+}

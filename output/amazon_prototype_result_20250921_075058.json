@@ -1,0 +1,38 @@
+{
+  "workflow_info": {
+    "prototype_name": "Amazon Customer Service",
+    "execution_timestamp": "2025-09-21T07:50:58.505011",
+    "routing_confidence": 0.95
+  },
+  "customer_verification": {
+    "verified": false,
+    "verification_method": "phone_number"
+  },
+  "processing_status": {
+    "status": "completed",
+    "fraud_detected": true
+  },
+  "original_conversation": {
+    "customer_info": {
+      "name": "John Smith",
+      "phone": "555-0123",
+      "email": "john.smith@email.com"
+    },
+    "complaint_info": {
+      "description": "My Amazon order was delayed and I want a refund",
+      "category": "shipping",
+      "urgency_level": "medium",
+      "order_id": "AMZ123456789"
+    },
+    "company_info": {
+      "company_name": "Amazon",
+      "confidence": 0.95
+    },
+    "status": "conversation_completed"
+  },
+  "prototype_metadata": {
+    "agent_type": "Amazon",
+    "processing_stage": "prototype_completed",
+    "workflow_version": "1.0"
+  }
+}

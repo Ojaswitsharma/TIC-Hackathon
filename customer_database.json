@@ -1,0 +1,368 @@
+{
+  "customers": [
+    {
+      "customer_id": "1",
+      "name": "John Smith",
+      "phone": "+1-555-0123",
+      "email": "john.smith@email.com", 
+      "address": "123 Main St, New York, NY 10001",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-1234567-8901234",
+          "product": "Echo Dot (4th Gen)",
+          "order_date": "2025-09-15",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "2",
+      "name": "Sarah Johnson",
+      "phone": "+1-555-0456",
+      "email": "sarah.johnson@email.com",
+      "address": "456 Oak Ave, Los Angeles, CA 90210",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-2345678-9012345",
+          "product": "Fire TV Stick 4K",
+          "order_date": "2025-09-18",
+          "status": "shipped"
+        }
+      ],
+      "previous_complaints": [
+        {
+          "date": "2025-08-10",
+          "issue": "Package damaged",
+          "resolution": "Replacement sent"
+        }
+      ]
+    },
+    {
+      "customer_id": "3",
+      "name": "Michael Davis",
+      "phone": "+1-555-0789",
+      "email": "michael.davis@email.com",
+      "address": "789 Pine St, Chicago, IL 60601",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-3456789-0123456",
+          "product": "Kindle Paperwhite",
+          "order_date": "2025-09-10",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "4",
+      "name": "Emily Wilson",
+      "phone": "+1-555-0321",
+      "email": "emily.wilson@email.com",
+      "address": "321 Elm St, Houston, TX 77001",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-4567890-1234567",
+          "product": "AirPods Pro (2nd Gen)",
+          "order_date": "2025-09-20",
+          "status": "processing"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "5",
+      "name": "David Brown",
+      "phone": "+1-555-0654",
+      "email": "david.brown@email.com",
+      "address": "654 Maple Dr, Phoenix, AZ 85001",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-5678901-2345678",
+          "product": "Ring Video Doorbell 4",
+          "order_date": "2025-09-12",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": [
+        {
+          "date": "2025-07-25",
+          "issue": "Late delivery",
+          "resolution": "Refund processed"
+        }
+      ]
+    },
+    {
+      "customer_id": "6",
+      "name": "Lisa Anderson",
+      "phone": "+1-555-0987",
+      "email": "lisa.anderson@email.com",
+      "address": "987 Cedar Ln, Philadelphia, PA 19101",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-6789012-3456789",
+          "product": "Amazon Basics Wireless Mouse",
+          "order_date": "2025-09-19",
+          "status": "shipped"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "7",
+      "name": "Robert Taylor",
+      "phone": "+1-555-0147",
+      "email": "robert.taylor@email.com",
+      "address": "147 Birch St, San Antonio, TX 78201",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-7890123-4567890",
+          "product": "Echo Show 8 (2nd Gen)",
+          "order_date": "2025-09-16",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "8",
+      "name": "Jennifer Martinez",
+      "phone": "+1-555-0258",
+      "email": "jennifer.martinez@email.com",
+      "address": "258 Spruce Ave, San Diego, CA 92101",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-8901234-5678901",
+          "product": "Fire Tablet 10",
+          "order_date": "2025-09-14",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": [
+        {
+          "date": "2025-06-15",
+          "issue": "Wrong item received",
+          "resolution": "Correct item sent"
+        }
+      ]
+    },
+    {
+      "customer_id": "9",
+      "name": "Christopher Lee",
+      "phone": "+1-555-0369",
+      "email": "christopher.lee@email.com",
+      "address": "369 Willow Rd, Dallas, TX 75201",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-9012345-6789012",
+          "product": "Bose QuietComfort Headphones",
+          "order_date": "2025-09-17",
+          "status": "shipped"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "10",
+      "name": "Amanda Garcia",
+      "phone": "+1-555-0741",
+      "email": "amanda.garcia@email.com",
+      "address": "741 Ash St, San Jose, CA 95101",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-0123456-7890123",
+          "product": "Amazon Echo Buds",
+          "order_date": "2025-09-13",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": [
+        {
+          "date": "2025-05-20",
+          "issue": "Billing discrepancy",
+          "resolution": "Account credited"
+        }
+      ]
+    },
+    {
+      "customer_id": "11",
+      "name": "David Wilson",
+      "phone": "+1-555-0111",
+      "email": "david.wilson@email.com",
+      "address": "111 Pine St, Seattle, WA 98101",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-1111111-1111111",
+          "product": "Kindle Paperwhite",
+          "order_date": "2025-09-10",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "12",
+      "name": "Lisa Chen",
+      "phone": "+1-555-0112",
+      "email": "lisa.chen@email.com",
+      "address": "222 Cedar Ave, Portland, OR 97201",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-2222222-2222222",
+          "product": "Ring Video Doorbell",
+          "order_date": "2025-09-12",
+          "status": "shipped"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "13",
+      "name": "Robert Martinez",
+      "phone": "+1-555-0113",
+      "email": "robert.martinez@email.com",
+      "address": "333 Birch Blvd, Denver, CO 80201",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-3333333-3333333",
+          "product": "Amazon Basics Wireless Mouse",
+          "order_date": "2025-09-14",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "14",
+      "name": "Jennifer Taylor",
+      "phone": "+1-555-0114",
+      "email": "jennifer.taylor@email.com",
+      "address": "444 Maple Dr, Phoenix, AZ 85001",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-4444444-4444444",
+          "product": "Echo Show 8",
+          "order_date": "2025-09-16",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "15",
+      "name": "Kevin Brown",
+      "phone": "+1-555-0115",
+      "email": "kevin.brown@email.com",
+      "address": "555 Willow Way, Atlanta, GA 30301",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-5555555-5555555",
+          "product": "Fire HD 10 Tablet",
+          "order_date": "2025-09-18",
+          "status": "processing"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "16",
+      "name": "Michelle Davis",
+      "phone": "+1-555-0116",
+      "email": "michelle.davis@email.com",
+      "address": "666 Spruce St, Boston, MA 02101",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-6666666-6666666",
+          "product": "Blink Mini Security Camera",
+          "order_date": "2025-09-19",
+          "status": "delivered"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "17",
+      "name": "Christopher Lee",
+      "phone": "+1-555-0117",
+      "email": "christopher.lee@email.com",
+      "address": "777 Elm Ave, Miami, FL 33101",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-7777777-7777777",
+          "product": "AmazonBasics USB-C Cable",
+          "order_date": "2025-09-20",
+          "status": "shipped"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "18",
+      "name": "Amanda White",
+      "phone": "+1-555-0118",
+      "email": "amanda.white@email.com",
+      "address": "888 Oak Ridge, Las Vegas, NV 89101",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-8888888-8888888",
+          "product": "Echo Buds (2nd Gen)",
+          "order_date": "2025-09-21",
+          "status": "processing"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "19",
+      "name": "Daniel Garcia",
+      "phone": "+1-555-0119",
+      "email": "daniel.garcia@email.com",
+      "address": "999 Pine Valley, San Diego, CA 92101",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-9999999-9999999",
+          "product": "Fire TV Cube",
+          "order_date": "2025-09-22",
+          "status": "pending"
+        }
+      ],
+      "previous_complaints": []
+    },
+    {
+      "customer_id": "20",
+      "name": "Jessica Thompson",
+      "phone": "+1-555-0120",
+      "email": "jessica.thompson@email.com",
+      "address": "1010 Redwood Ln, San Francisco, CA 94101",
+      "account_status": "active",
+      "recent_orders": [
+        {
+          "order_id": "112-1010101-1010101",
+          "product": "Alexa Voice Remote Pro",
+          "order_date": "2025-09-23",
+          "status": "pending"
+        }
+      ],
+      "previous_complaints": []
+    }
+  ]
+}

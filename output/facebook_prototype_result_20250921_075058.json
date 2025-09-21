@@ -1,0 +1,37 @@
+{
+  "workflow_info": {
+    "prototype_name": "Facebook Customer Service",
+    "execution_timestamp": "2025-09-21T07:50:58.526048",
+    "routing_confidence": 0.88
+  },
+  "customer_verification": {
+    "verified": false,
+    "verification_method": "phone_number"
+  },
+  "processing_status": {
+    "status": "completed",
+    "fraud_detected": true
+  },
+  "original_conversation": {
+    "customer_info": {
+      "name": "Sarah Johnson",
+      "phone": "555-0456",
+      "email": "sarah.j@email.com"
+    },
+    "complaint_info": {
+      "description": "My Facebook account was hacked and I can't log in",
+      "category": "security",
+      "urgency_level": "high"
+    },
+    "company_info": {
+      "company_name": "Facebook",
+      "confidence": 0.88
+    },
+    "status": "conversation_completed"
+  },
+  "prototype_metadata": {
+    "agent_type": "Facebook",
+    "processing_stage": "prototype_completed",
+    "workflow_version": "1.0"
+  }
+}

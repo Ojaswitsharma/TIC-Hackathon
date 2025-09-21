@@ -1,0 +1,44 @@
+{
+  "timestamp": "2025-09-21T00:45:01.823379",
+  "conversation_history": [
+    {
+      "role": "agent",
+      "message": "Hello! I'm here to help you with your complaint today. To get started, could you please tell me your name and briefly describe the issue you're experiencing?"
+    },
+    {
+      "role": "customer",
+      "message": "my name is dhairya and my issue is that i did not recieve my parcel, but on the amazon website it is saying that my parcel is delivered. I am very angry"
+    },
+    {
+      "role": "agent",
+      "message": "To help resolve this quickly, could you please provide your order ID?"
+    },
+    {
+      "role": "customer",
+      "message": "my order id is 12221"
+    },
+    {
+      "role": "agent",
+      "message": "To help me locate your parcel, could you please provide your phone number and email address?"
+    },
+    {
+      "role": "customer",
+      "message": "my phone number is 2345676543 and my email is abc@123.com"
+    },
+    {
+      "role": "agent",
+      "message": "Thank you for providing that information. I've recorded all the details about your complaint and we'll work on resolving this for you as soon as possible."
+    }
+  ],
+  "extracted_data": {
+    "customer_name": "dhairya",
+    "problem_description": "Did not receive parcel, but Amazon website says it was delivered.",
+    "problem_category": "Delivery Issue",
+    "urgency_level": "high",
+    "company_name": "amazon",
+    "order_id": "12221",
+    "customer_phone": "2345676543",
+    "customer_email": "abc@123.com"
+  },
+  "total_questions": 3
+}

@@ -1,0 +1,89 @@
+{
+  "conversation_metadata": {
+    "session_id": "20250921_081430",
+    "timestamp": "2025-09-21T08:14:30.372117",
+    "total_questions": 6,
+    "conversation_length": 14
+  },
+  "customer_info": {
+    "name": null,
+    "phone": "588980555",
+    "email": "test 123mail.com",
+    "address": null
+  },
+  "complaint_info": {
+    "description": "I cancelled my Amazon Time subscription but still got charged for it this month.",
+    "category": "payment",
+    "urgency_level": "high",
+    "order_id": null,
+    "product_name": "Amazon Time subscription",
+    "purchase_date": null
+  },
+  "company_info": {
+    "company_name": "amazon",
+    "confidence": 1.0
+  },
+  "conversation_history": [
+    {
+      "role": "agent",
+      "message": "Hello! I'm your AI customer service assistant. I'll help you with your issue by asking a few questions. Let's start!"
+    },
+    {
+      "role": "agent",
+      "message": "Could you please tell me your name and describe the issue you're experiencing?"
+    },
+    {
+      "role": "customer",
+      "message": " I cancelled my Amazon Time subscription but still got charged for it this month."
+    },
+    {
+      "role": "agent",
+      "message": "Which company or service is this complaint about? For example, Amazon, Facebook, Flipkart, or another company?"
+    },
+    {
+      "role": "customer",
+      "message": " Komm,not so."
+    },
+    {
+      "role": "agent",
+      "message": "Could you please provide your phone number and email address for our records?"
+    },
+    {
+      "role": "customer",
+      "message": " 588980555 and email us test 123mail.com"
+    },
+    {
+      "role": "agent",
+      "message": "If this involves an order or transaction, please provide the order number, tracking number, or transaction ID."
+    },
+    {
+      "role": "customer",
+      "message": " 1 2 2 1"
+    },
+    {
+      "role": "agent",
+      "message": "What product or service is involved, and when did you purchase or use it?"
+    },
+    {
+      "role": "customer",
+      "message": " It is a Samsung phone, bought on 20th September 2025."
+    },
+    {
+      "role": "agent",
+      "message": "Is there any additional information you'd like to add about this issue?"
+    },
+    {
+      "role": "customer",
+      "message": ""
+    },
+    {
+      "role": "agent",
+      "message": "Thank you for providing all the information. Let me process what we've discussed."
+    }
+  ],
+  "processing_info": {
+    "status": "conversation_completed",
+    "ready_for_routing": true,
+    "created_timestamp": "2025-09-21T08:14:30.372159"
+  }
+}

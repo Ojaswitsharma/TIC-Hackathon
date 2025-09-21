@@ -1,0 +1,51 @@
+{
+  "workflow_info": {
+    "prototype_name": "Amazon Customer Service",
+    "execution_timestamp": "2025-09-21T08:47:01.796273",
+    "routing_confidence": 1.0
+  },
+  "customer_verification": {
+    "verified": true,
+    "verification_method": "phone_number"
+  },
+  "processing_status": {
+    "status": "completed",
+    "fraud_detected": false
+  },
+  "original_conversation": {
+    "conversation_metadata": {
+      "session_id": "20250921_084701",
+      "timestamp": "2025-09-21T08:47:01.731907",
+      "total_questions": 6,
+      "conversation_length": 14
+    },
+    "customer_info": {
+      "name": "Rajesh Kumar",
+      "phone": null,
+      "email": null,
+      "address": null
+    },
+    "complaint_info": {
+      "description": "issues regarding my Amazon parcel",
+      "category": "delivery",
+      "urgency_level": "high",
+      "order_id": "4D 112233445566778899",
+      "product_name": "Shamsan, Galexi, Am34, 5G",
+      "purchase_date": "16, 9, 20, 25"
+    },
+    "company_info": {
+      "company_name": "amazon",
+      "confidence": 1.0
+    },
+    "processing_info": {
+      "status": "conversation_completed",
+      "ready_for_routing": true,
+      "created_timestamp": "2025-09-21T08:47:01.731947"
+    }
+  },
+  "prototype_metadata": {
+    "agent_type": "Amazon",
+    "processing_stage": "prototype_completed",
+    "workflow_version": "1.0"
+  }
+}

@@ -1,0 +1,69 @@
+{"timestamp": "2025-09-21T05:07:02.612704", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T05:07:02.619152", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T05:07:02.634226", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T05:07:02.653020", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T05:07:02.656211", "stage": "company_routing", "message": "Routing to facebook prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T05:07:02.664247", "stage": "facebook_prototype", "message": "Facebook prototype executed successfully", "detected_company": "facebook", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T05:10:23.068987", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T05:10:23.072982", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T05:10:23.086059", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T05:15:23.960851", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T05:15:23.962851", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T05:15:23.991698", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T05:18:28.069044", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T05:18:28.072116", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T05:18:28.111811", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T05:39:19.165540", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T05:39:19.171060", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T05:39:19.178583", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T05:50:49.962847", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T05:50:49.967848", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T05:50:49.975369", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T05:51:45.394134", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T05:51:45.398135", "stage": "company_routing", "message": "Routing to facebook prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T05:51:45.411697", "stage": "facebook_prototype", "message": "Facebook prototype executed successfully", "detected_company": "facebook", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T07:13:50.074250", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T07:13:50.075757", "stage": "company_routing", "message": "Routing to facebook prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T07:13:50.078711", "stage": "facebook_prototype", "message": "Facebook prototype executed successfully", "detected_company": "facebook", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T07:16:56.076606", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T07:16:56.077444", "stage": "company_routing_error", "message": "Company routing error: No prototype available for company: unknown", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T07:18:52.173048", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T07:18:52.173721", "stage": "company_routing_error", "message": "Company routing error: No prototype available for company: unknown", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T07:27:20.948823", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T07:27:20.949973", "stage": "company_routing_error", "message": "Company routing error: No prototype available for company: unknown", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T07:38:50.495006", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T07:38:50.495916", "stage": "company_routing_error", "message": "Company routing error: No prototype available for company: unknown", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T07:45:55.172004", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T07:45:55.172891", "stage": "company_routing_error", "message": "Company routing error: No prototype available for company: unknown", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T07:50:34.386917", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T07:50:34.387659", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T07:50:34.388740", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T07:50:34.409257", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T07:50:34.409954", "stage": "company_routing", "message": "Routing to facebook prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T07:50:34.410923", "stage": "facebook_prototype", "message": "Facebook prototype executed successfully", "detected_company": "facebook", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T07:50:58.503485", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T07:50:58.504275", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T07:50:58.505354", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T07:50:58.524466", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T07:50:58.525180", "stage": "company_routing", "message": "Routing to facebook prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T07:50:58.526436", "stage": "facebook_prototype", "message": "Facebook prototype executed successfully", "detected_company": "facebook", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T07:54:10.665547", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T07:54:10.666268", "stage": "company_routing_error", "message": "Company routing error: No prototype available for company: unknown", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T08:00:19.577028", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T08:00:19.577936", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T08:00:19.579296", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T08:14:30.422453", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T08:14:30.423198", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T08:14:30.435471", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T08:43:13.527406", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T08:43:13.528660", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T08:43:13.547093", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T08:47:01.785313", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T08:47:01.786086", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T08:47:01.796718", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T08:57:32.296163", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T08:57:32.296937", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T08:57:32.307867", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}
+{"timestamp": "2025-09-21T09:05:00.355751", "stage": "conversation_input", "message": "Conversation JSON loaded and validated", "detected_company": null, "workflow_status": "pending"}
+{"timestamp": "2025-09-21T09:05:00.356667", "stage": "company_routing", "message": "Routing to amazon prototype", "detected_company": null, "workflow_status": "routing"}
+{"timestamp": "2025-09-21T09:05:00.367714", "stage": "amazon_prototype", "message": "Amazon prototype executed successfully", "detected_company": "amazon", "workflow_status": "processing"}

@@ -1,0 +1,199 @@
+{
+  "session_info": {
+    "session_id": "20250921_071611",
+    "start_time": "2025-09-21T07:16:11.704784",
+    "end_time": "2025-09-21T07:16:56.077932",
+    "total_steps": 4
+  },
+  "workflow_log": [
+    {
+      "timestamp": "2025-09-21T07:16:11.704784",
+      "session_id": "20250921_071611",
+      "step": "conversational_agent",
+      "status": "progress",
+      "message": "Starting intelligent conversation with customer",
+      "data": {}
+    },
+    {
+      "timestamp": "2025-09-21T07:16:56.051063",
+      "session_id": "20250921_071611",
+      "step": "conversational_agent",
+      "status": "success",
+      "message": "Conversation completed - Company: unknown",
+      "data": {
+        "customer": null,
+        "company": "unknown",
+        "confidence": 0.0
+      }
+    },
+    {
+      "timestamp": "2025-09-21T07:16:56.051141",
+      "session_id": "20250921_071611",
+      "step": "langgraph_routing",
+      "status": "progress",
+      "message": "Starting company-specific routing workflow",
+      "data": {}
+    },
+    {
+      "timestamp": "2025-09-21T07:16:56.077913",
+      "session_id": "20250921_071611",
+      "step": "workflow_error",
+      "status": "error",
+      "message": "Workflow failed: Routing failed: Company routing error: No prototype available for company: unknown",
+      "data": {}
+    }
+  ],
+  "final_result": {
+    "success": false,
+    "session_id": "20250921_071611",
+    "conversation_result": {
+      "conversation_data": {
+        "conversation_metadata": {
+          "session_id": "20250921_071656",
+          "timestamp": "2025-09-21T07:16:56.033469",
+          "total_questions": 3,
+          "conversation_length": 8
+        },
+        "customer_info": {
+          "name": null,
+          "phone": null,
+          "email": null,
+          "address": null
+        },
+        "complaint_info": {
+          "description": "Unknown. No information provided.",
+          "category": null,
+          "urgency_level": "Unknown",
+          "order_id": null,
+          "product_name": null,
+          "purchase_date": null
+        },
+        "company_info": {
+          "company_name": "unknown",
+          "confidence": 0.0
+        },
+        "conversation_history": [
+          {
+            "role": "agent",
+            "message": "Hello! I'm your AI customer service assistant. I'll help you with your issue by asking a few questions. Let's start!"
+          },
+          {
+            "role": "agent",
+            "message": "Could you please tell me your name and describe the issue you're experiencing?"
+          },
+          {
+            "role": "customer",
+            "message": ""
+          },
+          {
+            "role": "agent",
+            "message": "Please describe the issue you are experiencing."
+          },
+          {
+            "role": "customer",
+            "message": ""
+          },
+          {
+            "role": "agent",
+            "message": "Could you please describe the issue you are experiencing?"
+          },
+          {
+            "role": "customer",
+            "message": ""
+          },
+          {
+            "role": "agent",
+            "message": "Thank you for providing the information. Let me process what we've discussed."
+          }
+        ],
+        "processing_info": {
+          "status": "conversation_completed",
+          "ready_for_routing": true,
+          "created_timestamp": "2025-09-21T07:16:56.033551"
+        }
+      },
+      "conversation_file": "conversations/conversation_20250921_071656.json"
+    },
+    "routing_result": {
+      "conversation_json": {
+        "conversation_metadata": {
+          "session_id": "20250921_071656",
+          "timestamp": "2025-09-21T07:16:56.033469",
+          "total_questions": 3,
+          "conversation_length": 8
+        },
+        "customer_info": {
+          "name": null,
+          "phone": null,
+          "email": null,
+          "address": null
+        },
+        "complaint_info": {
+          "description": "Unknown. No information provided.",
+          "category": null,
+          "urgency_level": "Unknown",
+          "order_id": null,
+          "product_name": null,
+          "purchase_date": null
+        },
+        "company_info": {
+          "company_name": "unknown",
+          "confidence": 0.0
+        },
+        "conversation_history": [
+          {
+            "role": "agent",
+            "message": "Hello! I'm your AI customer service assistant. I'll help you with your issue by asking a few questions. Let's start!"
+          },
+          {
+            "role": "agent",
+            "message": "Could you please tell me your name and describe the issue you're experiencing?"
+          },
+          {
+            "role": "customer",
+            "message": ""
+          },
+          {
+            "role": "agent",
+            "message": "Please describe the issue you are experiencing."
+          },
+          {
+            "role": "customer",
+            "message": ""
+          },
+          {
+            "role": "agent",
+            "message": "Could you please describe the issue you are experiencing?"
+          },
+          {
+            "role": "customer",
+            "message": ""
+          },
+          {
+            "role": "agent",
+            "message": "Thank you for providing the information. Let me process what we've discussed."
+          }
+        ],
+        "processing_info": {
+          "status": "conversation_completed",
+          "ready_for_routing": true,
+          "created_timestamp": "2025-09-21T07:16:56.033551"
+        }
+      },
+      "conversation_file_path": null,
+      "detected_company": null,
+      "company_confidence": null,
+      "routing_decision": null,
+      "prototype_result": null,
+      "prototype_output_file": null,
+      "processing_stage": "routing_failed",
+      "processing_timestamp": "2025-09-21T07:16:56.076721",
+      "errors": [
+        "Company routing error: No prototype available for company: unknown"
+      ],
+      "workflow_status": "failed"
+    },
+    "error_message": "Routing failed: Company routing error: No prototype available for company: unknown"
+  },
+  "status": "failed"
+}

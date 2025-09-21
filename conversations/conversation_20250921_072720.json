@@ -1,0 +1,65 @@
+{
+  "conversation_metadata": {
+    "session_id": "20250921_072720",
+    "timestamp": "2025-09-21T07:27:20.904570",
+    "total_questions": 3,
+    "conversation_length": 8
+  },
+  "customer_info": {
+    "name": "John",
+    "phone": null,
+    "email": null,
+    "address": null
+  },
+  "complaint_info": {
+    "description": "Package marked as delivered but not received.",
+    "category": null,
+    "urgency_level": "High",
+    "order_id": null,
+    "product_name": null,
+    "purchase_date": null
+  },
+  "company_info": {
+    "company_name": "unknown",
+    "confidence": 0.0
+  },
+  "conversation_history": [
+    {
+      "role": "agent",
+      "message": "Hello! I'm your AI customer service assistant. I'll help you with your issue by asking a few questions. Let's start!"
+    },
+    {
+      "role": "agent",
+      "message": "Could you please tell me your name and describe the issue you're experiencing?"
+    },
+    {
+      "role": "customer",
+      "message": " Name is John. I have lost her package from Amazon. It is showing delivered but it is not."
+    },
+    {
+      "role": "agent",
+      "message": "Could you please provide the tracking number for the package?"
+    },
+    {
+      "role": "customer",
+      "message": " 1321"
+    },
+    {
+      "role": "agent",
+      "message": "Could you please provide the tracking number for your package?"
+    },
+    {
+      "role": "customer",
+      "message": "1 2 2 1"
+    },
+    {
+      "role": "agent",
+      "message": "Thank you for providing the information. Let me process what we've discussed."
+    }
+  ],
+  "processing_info": {
+    "status": "conversation_completed",
+    "ready_for_routing": true,
+    "created_timestamp": "2025-09-21T07:27:20.904645"
+  }
+}

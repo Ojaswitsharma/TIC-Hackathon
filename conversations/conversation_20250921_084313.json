@@ -1,0 +1,31 @@
+{
+  "conversation_metadata": {
+    "session_id": "20250921_084313",
+    "timestamp": "2025-09-21T08:43:13.483091",
+    "total_questions": 5,
+    "conversation_length": 11
+  },
+  "customer_info": {
+    "name": "John",
+    "phone": "8588980555",
+    "email": "OJAS@therategmail.com",
+    "address": null
+  },
+  "complaint_info": {
+    "description": "My parcel on Amazon is showing delivered even though it is not.",
+    "category": "delivery",
+    "urgency_level": "high",
+    "order_id": "1221",
+    "product_name": null,
+    "purchase_date": null
+  },
+  "company_info": {
+    "company_name": "amazon",
+    "confidence": 1.0
+  },
+  "processing_info": {
+    "status": "conversation_completed",
+    "ready_for_routing": true,
+    "created_timestamp": "2025-09-21T08:43:13.483105"
+  }
+}
