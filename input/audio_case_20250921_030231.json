@@ -1,0 +1,55 @@
+{
+  "customer_info": {
+    "name": "Test User",
+    "phone": "+1-555-1234",
+    "email": "test.user@email.com",
+    "address": "123 Test Street"
+  },
+  "complaint_details": {
+    "description": "I was charged twice for my premium subscription this month",
+    "category": "Billing Dispute",
+    "urgency_level": "high",
+    "order_id": "ORD-123456",
+    "product_name": "Premium Subscription"
+  },
+  "company_info": {
+    "company_name": "TechCorp"
+  },
+  "source": "audio_conversation",
+  "processing_metadata": {
+    "conversation_timestamp": "2025-09-21T10:30:00.123456",
+    "completion_timestamp": "2025-09-21T10:32:15.789012",
+    "total_questions": 3,
+    "conversion_timestamp": "2025-09-21T03:02:31.482427",
+    "original_format": "conversational_agent"
+  },
+  "conversation_summary": {
+    "total_exchanges": 3,
+    "full_history": [
+      {
+        "role": "agent",
+        "message": "Hello! I'm here to help you with your complaint. Can you please tell me your name?"
+      },
+      {
+        "role": "customer",
+        "message": "Hi, my name is Test User"
+      },
+      {
+        "role": "agent",
+        "message": "Thank you Test User. What seems to be the issue you're experiencing?"
+      },
+      {
+        "role": "customer",
+        "message": "I was charged twice for my premium subscription this month"
+      },
+      {
+        "role": "agent",
+        "message": "I understand that's frustrating. Can you provide your email address?"
+      },
+      {
+        "role": "customer",
+        "message": "It's test.user@email.com"
+      }
+    ]
+  }
+}

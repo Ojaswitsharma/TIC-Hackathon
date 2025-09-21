@@ -1,0 +1,27 @@
+{
+  "documents/company_guide.txt": {
+    "size": 4249,
+    "mtime": 1758402147.4345572,
+    "indexed_at": "2025-09-21T02:44:44.745197"
+  },
+  "documents/faqs.txt": {
+    "size": 3759,
+    "mtime": 1758402860.8676436,
+    "indexed_at": "2025-09-21T02:44:44.745229"
+  },
+  "documents/policies.txt": {
+    "size": 4414,
+    "mtime": 1758402147.5067863,
+    "indexed_at": "2025-09-21T02:44:44.745247"
+  },
+  "documents/procedures.md": {
+    "size": 5117,
+    "mtime": 1758402147.5067863,
+    "indexed_at": "2025-09-21T02:44:44.745308"
+  },
+  "documents/instructions.csv": {
+    "size": 19202474,
+    "mtime": 1758402147.5067863,
+    "indexed_at": "2025-09-21T02:44:44.745406"
+  }
+}

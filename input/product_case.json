@@ -1,0 +1,16 @@
+{
+  "customer_info": {
+    "name": "Carol Davis",
+    "email": "carol@email.com",
+    "phone": "+1-555-9999"
+  },
+  "complaint_details": {
+    "description": "Received damaged product, screen is cracked and won't turn on",
+    "category": "product",
+    "urgency_level": "high",
+    "order_id": "ORD-987654"
+  },
+  "company_info": {
+    "company_name": "ElectroMart"
+  }
+}

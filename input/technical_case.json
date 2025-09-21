@@ -1,0 +1,15 @@
+{
+  "customer_info": {
+    "name": "Bob Wilson",
+    "email": "bob@email.com",
+    "phone": "+1-555-5678"
+  },
+  "complaint_details": {
+    "description": "Cannot access my account dashboard after the latest update",
+    "category": "technical",
+    "urgency_level": "medium"
+  },
+  "company_info": {
+    "company_name": "CloudServices"
+  }
+}
