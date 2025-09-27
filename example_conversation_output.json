@@ -1,0 +1,112 @@
+{
+  "timestamp": "2025-09-27T10:30:45.123456",
+  "conversation_history": [
+    {
+      "role": "agent",
+      "message": "Hello! I'm here to help you with your complaint today. To get started, could you please tell me your name and briefly describe the issue you're experiencing?"
+    },
+    {
+      "role": "customer", 
+      "message": "my name is chahi, and my issue is that my Macbook is not working"
+    },
+    {
+      "role": "agent",
+      "message": "I understand your frustration. Could you please provide your phone number or email address so we can contact you about the resolution?"
+    },
+    {
+      "role": "customer",
+      "message": "my phone number is 45654e456 and email is abcd@123.com"
+    },
+    {
+      "role": "agent", 
+      "message": "Can you tell me more details about what exactly happened with your product or service?"
+    },
+    {
+      "role": "customer",
+      "message": "it suddenly stopped working, the screen went black and won't turn on anymore. Very frustrating since I need it for work"
+    },
+    {
+      "role": "agent",
+      "message": "What is the name or model of the product you're having issues with?"
+    },
+    {
+      "role": "customer",
+      "message": "it is a MacBook Pro 13-inch model"
+    },
+    {
+      "role": "agent",
+      "message": "When did you purchase this product or when did this issue start occurring?"
+    },
+    {
+      "role": "customer",
+      "message": "I bought it last week on September 20th and the issue started yesterday morning"
+    },
+    {
+      "role": "agent",
+      "message": "Is there anything else you'd like to add about this issue that might help us resolve it better?"
+    },
+    {
+      "role": "customer",
+      "message": "I want either a replacement or full refund since this is clearly defective"
+    },
+    {
+      "role": "agent",
+      "message": "Thank you for providing that information. I've recorded all the details about your complaint and we'll work on resolving this for you as soon as possible."
+    }
+  ],
+  "extracted_data": {
+    "customer_name": "chahi",
+    "problem_description": "Macbook suddenly stopped working, screen went black and won't turn on",
+    "problem_category": "Product malfunction",
+    "urgency_level": "high",
+    "product_name": "MacBook Pro 13-inch",
+    "company_name": "Apple",
+    "customer_phone": "45654e456",
+    "customer_email": "abcd@123.com"
+  },
+  "emotion_tracking": [
+    {
+      "question_number": 1,
+      "emotion": null,
+      "intensity": null,
+      "keywords": [],
+      "response_text": "my name is chahi, and my issue is that my Macbook is not working"
+    },
+    {
+      "question_number": 2,
+      "emotion": null,
+      "intensity": null, 
+      "keywords": [],
+      "response_text": "my phone number is 45654e456 and email is abcd@123.com"
+    },
+    {
+      "question_number": 3,
+      "emotion": null,
+      "intensity": null,
+      "keywords": [],
+      "response_text": "it suddenly stopped working, the screen went black and won't turn on anymore. Very frustrating since I need it for work"
+    },
+    {
+      "question_number": 4,
+      "emotion": null,
+      "intensity": null,
+      "keywords": [],
+      "response_text": "it is a MacBook Pro 13-inch model"
+    },
+    {
+      "question_number": 5,
+      "emotion": null,
+      "intensity": null,
+      "keywords": [],
+      "response_text": "I bought it last week on September 20th and the issue started yesterday morning"
+    },
+    {
+      "question_number": 6,
+      "emotion": null,
+      "intensity": null,
+      "keywords": [],
+      "response_text": "I want either a replacement or full refund since this is clearly defective"
+    }
+  ],
+  "total_questions": 6
+}

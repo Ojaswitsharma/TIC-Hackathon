@@ -1,0 +1,20 @@
+# TIC Minimal - Essential Dependencies Only
+# ========================================
+
+# Core AI & LLM
+groq>=0.10.0
+openai-whisper
+
+# Workflow Management  
+langgraph==0.6.5
+
+# Audio Processing
+sounddevice==0.4.7
+numpy==1.26.4
+
+# Configuration & Utilities
+python-dotenv==1.1.1
+requests>=2.31.0
+
+# Optional: For enhanced functionality
+# pyaudio==0.2.11  # Uncomment if needed for better audio

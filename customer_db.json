@@ -1,0 +1,43 @@
+{
+  "customers": [
+    {
+      "customer_id": "AMZN123456789",
+      "name": "John Smith", 
+      "phone": "+1-555-0123",
+      "email": "john.smith@email.com",
+      "orders": [
+        {
+          "order_id": "AMZ-2024-001",
+          "date": "2024-09-20",
+          "status": "shipped",
+          "items": ["Wireless Headphones"],
+          "amount": "$79.99"
+        },
+        {
+          "order_id": "AMZ-2024-002", 
+          "date": "2024-09-15",
+          "status": "delivered",
+          "items": ["USB Cable"],
+          "amount": "$12.99"
+        }
+      ],
+      "membership": "Prime"
+    },
+    {
+      "customer_id": "AMZN987654321",
+      "name": "Sarah Johnson",
+      "phone": "+1-555-0456", 
+      "email": "sarah.johnson@email.com",
+      "orders": [
+        {
+          "order_id": "AMZ-2024-003",
+          "date": "2024-09-18",
+          "status": "processing",
+          "items": ["Book: AI Basics"],
+          "amount": "$24.99"
+        }
+      ],
+      "membership": "Standard"
+    }
+  ]
+}
