@@ -58,6 +58,13 @@ class CustomerCareState(TypedDict, total=False):
     # Processing data
     agent_response: str
     final_solution: str
+    protocol_execution: str  # Protocol execution output
+    customer_reassurance: str  # Final customer message
+    error: str
+    
+    # Execution tracking
+    execution_log: list  # Track what happened in each node
+    protocol_steps: list  # Final protocol as bullet points
     protocol_execution: str  # New field for protocol execution output
     customer_reassurance: str  # New field for final customer message
     error: str
@@ -275,6 +282,10 @@ def listener_node(state: CustomerCareState) -> CustomerCareState:
     """
     print("\nStarting customer service conversation...")
     
+    # Initialize execution log
+    if "execution_log" not in state:
+        state["execution_log"] = []
+    
     try:
         # Initialize speech services
         whisper_model = whisper.load_model("tiny")
@@ -328,38 +339,84 @@ def listener_node(state: CustomerCareState) -> CustomerCareState:
                 })
                 return state
         
-        # Process conversation data
+        # Process conversation data with improved extraction
         extraction_prompt = f"""
-Extract customer information from this conversation. Pay special attention to company names mentioned (Amazon, Facebook, Meta, Apple, etc.):
+You are an expert customer service data extractor. Analyze this conversation and extract key information accurately.
 
+CONVERSATION DATA:
 {json.dumps(conversation_history, indent=2)}
 
-Return only JSON with: customer_name, problem_description, product_name, company_name, customer_phone, customer_email
+EXTRACTION RULES:
+1. customer_name: Extract the person's actual name (not "Customer" or generic terms)
+2. problem_description: Summarize the main issue in 1-2 clear sentences
+3. product_name: Extract specific product/service mentioned (phone model, app name, etc.)
+4. company_name: CRITICAL - Extract the company name exactly as mentioned:
+   - "Facebook" or "Meta" → "facebook"
+   - "Amazon" → "amazon"  
+   - "Apple" → "apple"
+   - Look in ALL messages, not just the company question
+5. customer_phone: Extract phone number (clean format)
+6. customer_email: Extract email address
 
-Important: If the customer mentions Facebook, Meta, Amazon, Apple or any other company name, include it exactly in the company_name field.
+REQUIRED OUTPUT FORMAT (valid JSON only):
+{{
+    "customer_name": "actual name from conversation",
+    "problem_description": "clear summary of the issue", 
+    "product_name": "specific product mentioned",
+    "company_name": "facebook/amazon/apple/etc",
+    "customer_phone": "phone number", 
+    "customer_email": "email address"
+}}
+
+IMPORTANT: Return ONLY the JSON object, no additional text or explanation.
 """
         
         response = groq_client.chat.completions.create(
             messages=[{"role": "user", "content": extraction_prompt}],
             model="llama-3.3-70b-versatile",
-            temperature=0
+            temperature=0.1,  # Slightly higher for better extraction
+            max_tokens=500    # Ensure enough tokens for complete response
         )
         
-        # Extract and update state
+        # Extract and update state with better parsing
         try:
-            extracted_data = json.loads(response.choices[0].message.content.strip())
+            response_text = response.choices[0].message.content.strip()
+            
+            # Clean response text (remove code blocks if present)
+            if "```json" in response_text:
+                response_text = response_text.split("```json")[1].split("```")[0].strip()
+            elif "```" in response_text:
+                response_text = response_text.split("```")[1].strip()
+            
+            extracted_data = json.loads(response_text)
+            
+            # Validate and clean extracted data
+            cleaned_data = {
+                "customer_name": str(extracted_data.get("customer_name", "")).strip() or "Customer",
+                "problem_description": str(extracted_data.get("problem_description", "")).strip() or "Issue reported",
+                "product_name": str(extracted_data.get("product_name", "")).strip() or "Product",
+                "company_name": str(extracted_data.get("company_name", "")).lower().strip(),
+                "customer_phone": str(extracted_data.get("customer_phone", "")).strip() or "Not provided",
+                "customer_email": str(extracted_data.get("customer_email", "")).strip() or "Not provided"
+            }
+            
             state.update({
-                "customer_name": extracted_data.get("customer_name", "Customer"),
-                "problem_description": extracted_data.get("problem_description", "Issue reported"),
-                "product_name": extracted_data.get("product_name", "Product"),
-                "company_name": extracted_data.get("company_name", "").lower(),
-                "customer_phone": extracted_data.get("customer_phone", "Not provided"),
-                "customer_email": extracted_data.get("customer_email", "Not provided"),
+                "customer_name": cleaned_data["customer_name"],
+                "problem_description": cleaned_data["problem_description"],
+                "product_name": cleaned_data["product_name"],
+                "company_name": cleaned_data["company_name"],
+                "customer_phone": cleaned_data["customer_phone"],
+                "customer_email": cleaned_data["customer_email"],
                 "conversation_history": conversation_history,
-                "query": extracted_data.get("problem_description", "Issue reported")
+                "query": cleaned_data["problem_description"]
             })
-        except json.JSONDecodeError:
-            # Fallback data with smart company detection
+            
+            print(f"✅ Extracted: {cleaned_data['customer_name']} | Company: {cleaned_data['company_name'] or 'Unknown'}")
+        except (json.JSONDecodeError, KeyError, Exception) as e:
+            print(f"⚠️ LLM extraction failed: {e}")
+            print(f"Raw response: {response.choices[0].message.content[:200]}...")
+            
+            # Enhanced fallback data with smart company detection
             conversation_text = " ".join([msg["message"].lower() for msg in conversation_history])
             
             # Detect company from conversation text
@@ -371,20 +428,31 @@ Important: If the customer mentions Facebook, Meta, Amazon, Apple or any other c
             elif "apple" in conversation_text:
                 company_name = "apple"
             
+            # Try to extract name from first response
+            customer_name = "Customer"
+            if responses and len(responses) > 0:
+                first_response = responses[0].lower()
+                if "my name is" in first_response:
+                    try:
+                        name_part = first_response.split("my name is")[1].strip()
+                        potential_name = name_part.split()[0].strip(".,!?")
+                        if potential_name.isalpha() and len(potential_name) > 1:
+                            customer_name = potential_name.title()
+                    except:
+                        pass
+            
             state.update({
-                "customer_name": "Customer",
-                "problem_description": " ".join(responses[:2]) if responses else "Issue reported",
-                "product_name": responses[2] if len(responses) > 2 else "Product",
+                "customer_name": customer_name,
+                "problem_description": " ".join(responses[:3]) if responses else "Issue reported",
+                "product_name": responses[3] if len(responses) > 3 else "Product",
                 "company_name": company_name,
                 "customer_phone": "Not provided",
                 "customer_email": "Not provided",
                 "conversation_history": conversation_history,
-                "query": " ".join(responses[:2]) if responses else "Issue reported"
+                "query": " ".join(responses[:3]) if responses else "Issue reported"
             })
-        
-        print(f"\nCustomer: {state['customer_name']}")
-        print(f"Issue: {state['problem_description']}")
-        print(f"Routing to: {state['company_name']} support")
+            
+            print(f"🔄 Fallback extraction: {customer_name} | Company: {company_name or 'Unknown'}")
         
     except Exception as e:
         print(f"Error: {str(e)}")
@@ -399,6 +467,13 @@ Important: If the customer mentions Facebook, Meta, Amazon, Apple or any other c
             "conversation_history": [{"role": "customer", "message": "Demo"}],
             "query": "Demo issue"
         })
+    
+    # Log execution
+    state["execution_log"].append({
+        "node": "Listener Node",
+        "status": "completed",
+        "description": f"Conducted 7-question conversation with {state.get('customer_name', 'customer')}, extracted information, identified company: {state.get('company_name', 'unknown')}"
+    })
     
     return state
 
@@ -496,6 +571,23 @@ CONCISE RESOLUTION PROTOCOL:"""
         state["error"] = error_msg
         print(f"❌ Amazon agent failed: {e}")
     
+    # Log execution
+    if "execution_log" not in state:
+        state["execution_log"] = []
+    
+    if not state.get("error"):
+        state["execution_log"].append({
+            "node": "Amazon Agent",
+            "status": "completed", 
+            "description": f"Retrieved relevant Amazon support documents, generated resolution protocol using hybrid RAG (FAISS + BM25)"
+        })
+    else:
+        state["execution_log"].append({
+            "node": "Amazon Agent",
+            "status": "failed",
+            "description": f"Failed to process: {state.get('error', 'unknown error')}"
+        })
+    
     return state
 
 def facebook_agent_node(state: CustomerCareState) -> CustomerCareState:
@@ -570,6 +662,23 @@ CONCISE RESOLUTION PROTOCOL:"""
         error_msg = f"Facebook agent error: {str(e)}"
         state["error"] = error_msg
         print(f"❌ Facebook agent failed: {e}")
+    
+    # Log execution
+    if "execution_log" not in state:
+        state["execution_log"] = []
+        
+    if not state.get("error"):
+        state["execution_log"].append({
+            "node": "Facebook Agent", 
+            "status": "completed",
+            "description": f"Retrieved relevant Facebook support documents, generated resolution protocol using hybrid RAG (FAISS + BM25)"
+        })
+    else:
+        state["execution_log"].append({
+            "node": "Facebook Agent",
+            "status": "failed", 
+            "description": f"Failed to process: {state.get('error', 'unknown error')}"
+        })
     
     return state
 
@@ -662,9 +771,56 @@ FINAL CONFIRMATION:"""
         print("\n🔊 Resolution complete. Converting message to speech...")
         speak_text(customer_reassurance)
         
+        # Extract protocol steps as bullet points
+        protocol_text = state.get("final_solution", "")
+        protocol_steps = []
+        
+        # Try to extract numbered steps or bullet points
+        lines = protocol_text.split('\n')
+        for line in lines:
+            line = line.strip()
+            if (line and 
+                (line[0].isdigit() or 
+                 line.startswith('•') or 
+                 line.startswith('-') or 
+                 line.startswith('*') or
+                 any(line.startswith(f"{i}.") for i in range(1, 10)))):
+                # Clean up the step text
+                clean_step = line
+                if line[0].isdigit() and '.' in line:
+                    clean_step = line.split('.', 1)[1].strip()
+                elif line.startswith(('•', '-', '*')):
+                    clean_step = line[1:].strip()
+                protocol_steps.append(clean_step)
+        
+        # If no structured steps found, create them from the protocol
+        if not protocol_steps and protocol_text:
+            # Split by sentences and create steps
+            sentences = [s.strip() for s in protocol_text.replace('.', '.\n').split('\n') if s.strip()]
+            protocol_steps = sentences[:6]  # Limit to 6 key steps
+        
+        state["protocol_steps"] = protocol_steps
+        
     except Exception as e:
         error_msg = f"Protocol execution error: {str(e)}"
         state["error"] = error_msg
         print(f"❌ Protocol execution failed: {e}")
+    
+    # Log execution
+    if "execution_log" not in state:
+        state["execution_log"] = []
+        
+    if not state.get("error"):
+        state["execution_log"].append({
+            "node": "Protocol Execution",
+            "status": "completed",
+            "description": f"Generated dual responses (process execution + customer reassurance), delivered via TTS, extracted {len(state.get('protocol_steps', []))} actionable steps"
+        })
+    else:
+        state["execution_log"].append({
+            "node": "Protocol Execution", 
+            "status": "failed",
+            "description": f"Failed to execute: {state.get('error', 'unknown error')}"
+        })
     
     return state

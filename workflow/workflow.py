@@ -142,6 +142,37 @@ class CustomerCareWorkflow:
         reassurance = state.get('customer_reassurance', 'No reassurance message')
         print(f"  {reassurance}")
         
+        # Step-by-Step Protocol Summary
+        print("\n" + "="*60)
+        print("📋 STEP-BY-STEP PROTOCOL SUMMARY")
+        print("="*60)
+        
+        # Node Execution Log
+        execution_log = state.get('execution_log', [])
+        if execution_log:
+            print("\n🔄 NODE EXECUTION SUMMARY:")
+            for i, log_entry in enumerate(execution_log, 1):
+                status_icon = "✅" if log_entry['status'] == 'completed' else "❌"
+                print(f"  {i}. {status_icon} {log_entry['node']}")
+                print(f"     └─ {log_entry['description']}")
+        
+        # Protocol Steps as Bullet Points
+        protocol_steps = state.get('protocol_steps', [])
+        if protocol_steps:
+            print(f"\n🎯 ACTIONABLE PROTOCOL ({len(protocol_steps)} STEPS):")
+            for i, step in enumerate(protocol_steps, 1):
+                print(f"  • Step {i}: {step}")
+        else:
+            # Fallback: extract from final solution
+            solution = state.get('final_solution', '')
+            if solution:
+                print(f"\n🎯 RESOLUTION PROTOCOL:")
+                # Try to create bullet points from solution text
+                sentences = [s.strip() for s in solution.split('.') if s.strip()]
+                for i, sentence in enumerate(sentences[:5], 1):  # Limit to 5 sentences
+                    if len(sentence) > 10:  # Only meaningful sentences
+                        print(f"  • {sentence}")
+        
         print("\n" + "="*60)
         print("✅ WORKFLOW COMPLETED SUCCESSFULLY")
         print("="*60)
