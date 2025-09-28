@@ -1,0 +1,16 @@
+python-dotenv
+langchain
+langchain-community
+faiss-cpu
+sentence-transformers
+torch
+transformers
+numpy
+pandas
+langchain-experimental
+langchain-groq
+neo4j               
+faiss-cpu      
+sentence-transformers 
+torch       
+python-dotenv

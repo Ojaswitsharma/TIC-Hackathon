@@ -1,0 +1,7 @@
+{
+  "source_file": "facebook_customer_service_augmented.jsonl",
+  "num_records": 1008,
+  "num_documents": 1008,
+  "num_chunks": 1008,
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2"
+}

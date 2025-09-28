@@ -1,0 +1,7 @@
+{
+  "source_file": "amazon_customer_service_augmented.jsonl",
+  "num_records": 1208,
+  "num_documents": 1208,
+  "num_chunks": 1375,
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2"
+}

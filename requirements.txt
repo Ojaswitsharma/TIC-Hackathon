@@ -1,0 +1,19 @@
+# Core dependencies for Amazon Customer Service Agent - Hybrid RAG
+python-dotenv
+langchain
+langchain-community
+langchain-groq
+faiss-cpu
+groq
+
+# Required for embeddings
+sentence-transformers
+torch
+transformers
+
+# For BM25 keyword search
+rank-bm25
+
+# Utilities
+numpy
+pandas
