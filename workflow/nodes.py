@@ -286,6 +286,7 @@ def listener_node(state: CustomerCareState) -> CustomerCareState:
             "Could you please provide your phone number or email address?",
             "Can you give me more details about what exactly happened?",
             "What is the product name or model you're having issues with?",
+            "What is the company name that you are facing issues with?",
             "When did you purchase this or when did the issue start?",
             "Is there anything else that might help us resolve this?"
         ]
@@ -329,11 +330,13 @@ def listener_node(state: CustomerCareState) -> CustomerCareState:
         
         # Process conversation data
         extraction_prompt = f"""
-Extract customer information from this conversation:
+Extract customer information from this conversation. Pay special attention to company names mentioned (Amazon, Facebook, Meta, Apple, etc.):
 
 {json.dumps(conversation_history, indent=2)}
 
 Return only JSON with: customer_name, problem_description, product_name, company_name, customer_phone, customer_email
+
+Important: If the customer mentions Facebook, Meta, Amazon, Apple or any other company name, include it exactly in the company_name field.
 """
         
         response = groq_client.chat.completions.create(
@@ -349,19 +352,30 @@ Return only JSON with: customer_name, problem_description, product_name, company
                 "customer_name": extracted_data.get("customer_name", "Customer"),
                 "problem_description": extracted_data.get("problem_description", "Issue reported"),
                 "product_name": extracted_data.get("product_name", "Product"),
-                "company_name": extracted_data.get("company_name", "amazon").lower(),
+                "company_name": extracted_data.get("company_name", "").lower(),
                 "customer_phone": extracted_data.get("customer_phone", "Not provided"),
                 "customer_email": extracted_data.get("customer_email", "Not provided"),
                 "conversation_history": conversation_history,
                 "query": extracted_data.get("problem_description", "Issue reported")
             })
         except json.JSONDecodeError:
-            # Fallback data
+            # Fallback data with smart company detection
+            conversation_text = " ".join([msg["message"].lower() for msg in conversation_history])
+            
+            # Detect company from conversation text
+            company_name = ""
+            if "facebook" in conversation_text or "meta" in conversation_text:
+                company_name = "facebook"
+            elif "amazon" in conversation_text:
+                company_name = "amazon"
+            elif "apple" in conversation_text:
+                company_name = "apple"
+            
             state.update({
                 "customer_name": "Customer",
                 "problem_description": " ".join(responses[:2]) if responses else "Issue reported",
                 "product_name": responses[2] if len(responses) > 2 else "Product",
-                "company_name": "amazon",
+                "company_name": company_name,
                 "customer_phone": "Not provided",
                 "customer_email": "Not provided",
                 "conversation_history": conversation_history,
@@ -392,15 +406,21 @@ def routing_node(state: CustomerCareState) -> str:
     """
     Route to appropriate company agent
     """
-    company = state.get("company_name", "").lower()
+    company = state.get("company_name", "").lower().strip()
+    
+    print(f"🔍 Routing decision: company_name = '{company}'")
     
     if "amazon" in company:
+        print("📦 Routing to Amazon agent")
         return "amazon_agent"
     elif "facebook" in company or "meta" in company:
+        print("📘 Routing to Facebook agent")
         return "facebook_agent"
     elif "apple" in company:
+        print("🍎 Routing to Amazon agent (Apple fallback)")
         return "amazon_agent"  # Route to Amazon for now
     else:
+        print("⚠️ No company match found, defaulting to Amazon agent")
         return "amazon_agent"  # Default
 
 def amazon_agent_node(state: CustomerCareState) -> CustomerCareState:
