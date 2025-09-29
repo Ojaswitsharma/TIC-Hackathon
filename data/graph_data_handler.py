@@ -15,9 +15,9 @@ load_dotenv()
 
 # --- Configuration ---
 # 1. Neo4j Credentials from your text file
-NEO4J_URI = "neo4j+s://fb98514e.databases.neo4j.io"
-NEO4J_USERNAME = "neo4j"
-NEO4J_PASSWORD = "uHdujIiUOKRvStfpmfDA7W3bodJUjfoLxD2OlaXPCSg"
+NEO4J_URI = ""
+NEO4J_USERNAME = ""
+NEO4J_PASSWORD = ""
 
 # 2. Groq LLM API Key is now loaded from the .env file
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
